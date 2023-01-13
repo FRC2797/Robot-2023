@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainer {
 
-  private final CommandXboxController m_driverController =
+  private final CommandXboxController controller =
       new CommandXboxController(0);
 
   public RobotContainer() {
