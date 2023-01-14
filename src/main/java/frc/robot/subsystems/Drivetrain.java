@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
@@ -33,6 +34,8 @@ public class Drivetrain extends SubsystemBase {
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(0);
+    Shuffleboard.getTab("Subsystems").add(this);
+    Shuffleboard.getTab("Subsystems").add(drive);
   }
 
 
