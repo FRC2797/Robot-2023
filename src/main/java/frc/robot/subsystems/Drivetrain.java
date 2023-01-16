@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -36,6 +37,8 @@ public class Drivetrain extends SubsystemBase {
     drive.setDeadband(0);
     Shuffleboard.getTab("Subsystems").add(this);
     Shuffleboard.getTab("Subsystems").add(drive);
+
+    setMotorsToCoast();
   }
 
 
@@ -43,5 +46,19 @@ public class Drivetrain extends SubsystemBase {
   public void arcadeDrive(double xSpeed, double rotation) {
     final boolean INPUTS_SQUARED = false;
     drive.arcadeDrive(xSpeed, rotation, INPUTS_SQUARED);
+  }
+
+  public void brake() {
+    sparkMaxFrontRight.setIdleMode(IdleMode.kBrake);
+    sparkMaxFrontLeft.setIdleMode(IdleMode.kBrake);
+    sparkMaxBackRight.setIdleMode(IdleMode.kBrake);
+    sparkMaxBackLeft.setIdleMode(IdleMode.kBrake);
+  }
+
+  private void setMotorsToCoast() {
+    sparkMaxFrontRight.setIdleMode(IdleMode.kCoast);
+    sparkMaxFrontLeft.setIdleMode(IdleMode.kCoast);
+    sparkMaxBackRight.setIdleMode(IdleMode.kCoast);
+    sparkMaxBackLeft.setIdleMode(IdleMode.kCoast);
   }
 }
