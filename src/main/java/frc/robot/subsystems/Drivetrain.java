@@ -48,7 +48,7 @@ public class Drivetrain extends SubsystemBase {
     drive.arcadeDrive(xSpeed, rotation, INPUTS_SQUARED);
   }
 
-  public void brake() {
+  public void setMotorsToBrake() {
     sparkMaxFrontRight.setIdleMode(IdleMode.kBrake);
     sparkMaxFrontLeft.setIdleMode(IdleMode.kBrake);
     sparkMaxBackRight.setIdleMode(IdleMode.kBrake);
