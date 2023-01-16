@@ -8,6 +8,10 @@ public class Navx extends SubsystemBase {
 
   public Navx() {
     ahrs.reset();
+    calibrate();
+  }
+
+  public void calibrate() {
     ahrs.calibrate();
   }
 
