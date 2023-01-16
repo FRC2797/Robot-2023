@@ -38,7 +38,7 @@ public class Drivetrain extends SubsystemBase {
     Shuffleboard.getTab("Subsystems").add(this);
     Shuffleboard.getTab("Subsystems").add(drive);
 
-    setMotorsToCoast();
+    setMotorsToBrake();
   }
 
 
