@@ -7,7 +7,6 @@ public class Navx extends SubsystemBase {
   private AHRS ahrs = new AHRS();
 
   public Navx() {
-    ahrs.reset();
     calibrate();
   }
 
