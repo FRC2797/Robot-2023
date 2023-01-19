@@ -1,12 +1,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Limelight;
 
 import static edu.wpi.first.wpilibj2.command.Commands.*;
 import static edu.wpi.first.math.MathUtil.applyDeadband;
+import static java.lang.Math.abs;
 import frc.robot.subsystems.Navx;
 
 public class RobotContainer {
@@ -16,10 +21,13 @@ public class RobotContainer {
 
   private final Drivetrain drivetrain = new Drivetrain();
   private final Navx navx = new Navx();
+  private final Limelight limelight = new Limelight();
+  private final ShuffleboardTab commandsTab = Shuffleboard.getTab("Commands");
 
   public RobotContainer() {
     drivetrain.setDefaultCommand(teleopDrive());
     configureBindings();
+    commandsTab.add(aimWithLimelight());
   }
 
   private void configureBindings() {
@@ -74,5 +82,20 @@ public class RobotContainer {
     final double LEVELED_VALUE = 1;
 
     return waitUntil(() -> Math.abs(navx.getRoll()) < LEVELED_VALUE);
+  }
+
+  public CommandBase aimWithLimelight() {
+    final double LINED_UP = 1;
+    final double SPEED = 0.04;
+    return run(() -> {
+      double horizontalOffset = limelight.getHorizontalOffset();
+
+      if (horizontalOffset > LINED_UP) {
+        drivetrain.arcadeDrive(0, -SPEED);
+      } else if (horizontalOffset < LINED_UP) {
+        drivetrain.arcadeDrive(0, SPEED);
+      }
+
+    }, drivetrain).until(() -> abs(limelight.getHorizontalOffset()) < LINED_UP).withName("aim with limelight");
   }
 }
