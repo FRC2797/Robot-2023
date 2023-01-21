@@ -12,6 +12,7 @@ import frc.robot.subsystems.Limelight;
 import static edu.wpi.first.wpilibj2.command.Commands.*;
 import static edu.wpi.first.math.MathUtil.applyDeadband;
 import static java.lang.Math.abs;
+import static frc.robot.subsystems.Limelight.*;
 import frc.robot.subsystems.Navx;
 
 public class RobotContainer {
@@ -24,14 +25,19 @@ public class RobotContainer {
   private final Limelight limelight = new Limelight();
   private final ShuffleboardTab commandsTab = Shuffleboard.getTab("Commands");
 
+    CommandBase aimAprilTag = switchPipelineThenAim(Pipeline.aprilTag).withName("Aim April Tag");
+    CommandBase aimBottomPeg = switchPipelineThenAim(Pipeline.bottomPeg).withName("Aim Bottom Peg");
+    CommandBase aimTopPeg = switchPipelineThenAim(Pipeline.topPeg).withName("Aim Top Peg");
   public RobotContainer() {
     drivetrain.setDefaultCommand(teleopDrive());
     configureBindings();
-    commandsTab.add(aimWithLimelight());
+
   }
 
   private void configureBindings() {
     controller.y().onTrue(driveUntilLevelOnChargingStation());
+    controller.x().onTrue(aimAprilTag);
+    controller.b().onTrue(aimBottomPeg);
   }
 
   public Command getAutonomousCommand() {
@@ -97,5 +103,10 @@ public class RobotContainer {
       }
 
     }, drivetrain).until(() -> abs(limelight.getHorizontalOffset()) < LINED_UP).withName("aim with limelight");
+  }
+
+  public CommandBase switchPipelineThenAim(Pipeline pipeline) {
+    Command switchPipeline = limelight.switchPipelineCommand(pipeline);
+    return switchPipeline.andThen(aimWithLimelight());
   }
 }
