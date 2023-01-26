@@ -79,7 +79,7 @@ public class RobotContainer {
 
 
     Command driveForwardSlowly = run(() -> drivetrain.arcadeDrive(SLOW_SPEED_FORWARD, 0), drivetrain);
-    Command waitUntilPitched = waitUntil(() -> Math.abs(navx.getRoll()) > PITCHED_VALUE);
+    Command waitUntilPitched = waitUntil(() -> Math.abs(navx.getPitch()) > PITCHED_VALUE);
 
     Command driveBackwardSlowly = run(() -> drivetrain.arcadeDrive(SLOW_SPEED_BACKWARD, 0), drivetrain);
 
@@ -94,7 +94,7 @@ public class RobotContainer {
   public Command waitUntilLevel() {
     final double LEVELED_VALUE = 1;
 
-    return waitUntil(() -> Math.abs(navx.getRoll()) < LEVELED_VALUE);
+    return waitUntil(() -> Math.abs(navx.getPitch()) < LEVELED_VALUE);
   }
 
   public CommandBase aimWithLimelight() {
