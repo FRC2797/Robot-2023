@@ -41,7 +41,7 @@ public class RobotContainer {
       double leftYDeadband = applyDeadband(leftY, DEADBAND);
       double rightXDeadband = applyDeadband(rightX, DEADBAND);
 
-      drivetrain.arcadeDrive(-leftYDeadband, rightXDeadband);
+      drivetrain.arcadeDrive(-leftYDeadband, -rightXDeadband);
     }, drivetrain);
   }
 
