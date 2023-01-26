@@ -84,8 +84,10 @@ public class RobotContainer {
     Command driveBackwardSlowly = run(() -> drivetrain.arcadeDrive(SLOW_SPEED_BACKWARD, 0), drivetrain);
 
     return (
-      deadline(waitUntilPitched.andThen(waitUntilLevel()), driveForwardSlowly)
-      .andThen(deadline(waitSeconds(WAIT_BEFORE_OVERSHOOT_CORRECTION).andThen(waitUntilLevel()), driveBackwardSlowly))
+      driveForwardSlowly.raceWith(waitUntilPitched.andThen(waitUntilLevel()))
+      .andThen(
+        driveBackwardSlowly.raceWith(waitSeconds(WAIT_BEFORE_OVERSHOOT_CORRECTION).andThen(waitUntilLevel()))
+      )
     );
   }
 
