@@ -32,17 +32,21 @@ public class RobotContainer {
 
   public Command teleopDrive() {
     return run(() -> {
-      final double DEADBAND = 0.1;
-
-
       double leftY = controller.getLeftY();
       double rightX = controller.getRightX();
 
-      double leftYDeadband = applyDeadband(leftY, DEADBAND);
-      double rightXDeadband = applyDeadband(rightX, DEADBAND);
-
-      drivetrain.arcadeDrive(-leftYDeadband, -rightXDeadband);
+      drivetrain.arcadeDrive(
+        transformStickInput(leftY), 
+        transformStickInput(rightX)
+      );
     }, drivetrain);
+  }
+
+  public double transformStickInput(double stickInput) {
+    final double DEADBAND = 0.1;
+    stickInput = applyDeadband(stickInput, DEADBAND);
+    stickInput *= -1;
+    return stickInput;
   }
 
   public Command driveUntilLevelOnChargingStation() {
