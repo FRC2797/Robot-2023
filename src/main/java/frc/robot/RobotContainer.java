@@ -43,7 +43,7 @@ public class RobotContainer {
   }
 
   public double transformStickInput(double stickInput) {
-    final double DEADBAND = 0.1;
+    final double DEADBAND = 0.05;
     stickInput = applyDeadband(stickInput, DEADBAND);
     stickInput *= -1;
     boolean isNegative = stickInput < 0;
