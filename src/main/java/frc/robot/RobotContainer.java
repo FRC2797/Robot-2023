@@ -49,7 +49,7 @@ public class RobotContainer {
     return null;
   }
 
-  public Command teleopDrive() {
+  private Command teleopDrive() {
     return run(() -> {
       double leftY = controller.getLeftY();
       double rightX = controller.getRightX();
@@ -61,7 +61,7 @@ public class RobotContainer {
     }, drivetrain);
   }
 
-  public double transformStickInput(double stickInput) {
+  private double transformStickInput(double stickInput) {
     final double DEADBAND = 0.05;
     stickInput = applyDeadband(stickInput, DEADBAND);
     stickInput *= -1;
@@ -71,7 +71,7 @@ public class RobotContainer {
     return stickInput;
   }
 
-  public Command driveUntilLevelOnChargingStation() {
+  private Command driveUntilLevelOnChargingStation() {
     final double SLOW_SPEED_FORWARD = 0.15;
     final double SLOW_SPEED_BACKWARD = -0.05;
     final double WAIT_BEFORE_OVERSHOOT_CORRECTION = 0.5;
@@ -91,13 +91,13 @@ public class RobotContainer {
     );
   }
 
-  public Command waitUntilLevel() {
+  private Command waitUntilLevel() {
     final double LEVELED_VALUE = 1;
 
     return waitUntil(() -> Math.abs(navx.getPitch()) < LEVELED_VALUE);
   }
 
-  public CommandBase aimWithLimelight() {
+  private CommandBase aimWithLimelight() {
     final double LINED_UP = 1;
     final double SPEED = 0.04;
     return run(() -> {
@@ -112,7 +112,7 @@ public class RobotContainer {
     }, drivetrain).until(() -> abs(limelight.getHorizontalOffset()) < LINED_UP).withName("aim with limelight");
   }
 
-  public CommandBase switchPipelineThenAim(Pipeline pipeline) {
+  private CommandBase switchPipelineThenAim(Pipeline pipeline) {
     Command switchPipeline = limelight.switchPipelineCommand(pipeline);
     return switchPipeline.andThen(aimWithLimelight());
   }
