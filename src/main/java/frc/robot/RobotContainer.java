@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Grabber;
 
 import static edu.wpi.first.wpilibj2.command.Commands.*;
 import static edu.wpi.first.math.MathUtil.applyDeadband;
@@ -24,6 +25,7 @@ public class RobotContainer {
   private final Navx navx = new Navx();
   private final Limelight limelight = new Limelight();
   private final ShuffleboardTab commandsTab = Shuffleboard.getTab("Commands");
+  private final Grabber grabber = new Grabber();
 
     CommandBase aimAprilTag = switchPipelineThenAim(Pipeline.aprilTag).withName("Aim April Tag");
     CommandBase aimBottomPeg = switchPipelineThenAim(Pipeline.bottomPeg).withName("Aim Bottom Peg");
@@ -38,6 +40,9 @@ public class RobotContainer {
     controller.y().onTrue(driveUntilLevelOnChargingStation());
     controller.x().onTrue(aimAprilTag);
     controller.b().onTrue(aimBottomPeg);
+
+    controller.leftTrigger(0.1).onTrue(grabber.fullyOpenGrabber());
+    controller.rightTrigger(0.1).onTrue(grabber.fullyCloseGrabber());
   }
 
   public Command getAutonomousCommand() {
