@@ -1,6 +1,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,6 +28,7 @@ public class RobotContainer {
   private final Limelight limelight = new Limelight();
   private final ShuffleboardTab commandsTab = Shuffleboard.getTab("Commands");
   private final Grabber grabber = new Grabber();
+  private final Solenoid brakes = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
 
     CommandBase aimAprilTag = switchPipelineThenAim(Pipeline.aprilTag).withName("Aim April Tag");
     CommandBase aimBottomPeg = switchPipelineThenAim(Pipeline.bottomPeg).withName("Aim Bottom Peg");
@@ -36,10 +39,16 @@ public class RobotContainer {
 
   }
 
+  private CommandBase brakesOn() {
+    return startEnd(() -> brakes.set(true), () -> brakes.set(false), drivetrain);
+  }
+
   private void configureBindings() {
     controller.y().onTrue(driveUntilLevelOnChargingStation());
     controller.x().onTrue(aimAprilTag);
     controller.b().onTrue(aimBottomPeg);
+
+    controller.a().toggleOnTrue(brakesOn());
 
     controller.leftTrigger(0.1).onTrue(grabber.fullyOpenGrabber());
     controller.rightTrigger(0.1).onTrue(grabber.fullyCloseGrabber());
