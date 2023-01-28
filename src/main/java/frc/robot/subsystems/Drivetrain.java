@@ -19,7 +19,7 @@ public class Drivetrain extends SubsystemBase {
   private CANSparkMax sparkMaxBackLeft;
 
   public Drivetrain() {
-    final int FRONT_RIGHT = 5;
+    final int FRONT_RIGHT = 1;
     final int BACK_RIGHT = 2;
     final int FRONT_LEFT = 3;
     final int BACK_LEFT = 4;
