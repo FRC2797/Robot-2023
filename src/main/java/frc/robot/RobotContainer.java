@@ -40,7 +40,7 @@ public class RobotContainer {
   }
 
   private CommandBase brakesOn() {
-    return startEnd(() -> brakes.set(true), () -> brakes.set(false), drivetrain);
+    return startEnd(() -> brakes.set(true), () -> brakes.set(false), drivetrain).ignoringDisable(true);
   }
 
   private void configureBindings() {
