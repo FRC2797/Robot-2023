@@ -41,8 +41,6 @@ public class Drivetrain extends SubsystemBase {
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(0);
-    Shuffleboard.getTab("Subsystems").add(this);
-    Shuffleboard.getTab("Subsystems").add(drive);
 
     frontRightEnc = frontRight.getEncoder();
     frontLeftEnc = frontLeft.getEncoder();
@@ -57,6 +55,7 @@ public class Drivetrain extends SubsystemBase {
     backLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
 
     setMotorsToBrake();
+    setUpShuffleboard();
   }
 
 
@@ -87,5 +86,10 @@ public class Drivetrain extends SubsystemBase {
     frontLeft.setIdleMode(IdleMode.kCoast);
     backRight.setIdleMode(IdleMode.kCoast);
     backLeft.setIdleMode(IdleMode.kCoast);
+  }
+
+  private void setUpShuffleboard() {
+    Shuffleboard.getTab("Subsystems").add(this);
+    Shuffleboard.getTab("Subsystems").add(drive);
   }
 }
