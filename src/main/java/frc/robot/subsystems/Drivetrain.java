@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -17,6 +18,11 @@ public class Drivetrain extends SubsystemBase {
   private CANSparkMax frontLeft;
   private CANSparkMax backRight;
   private CANSparkMax backLeft;
+
+  private RelativeEncoder frontRightEnc;
+  private RelativeEncoder frontLeftEnc;
+  private RelativeEncoder backRightEnc;
+  private RelativeEncoder backLeftEnc;
 
   public Drivetrain() {
     final int FRONT_RIGHT = 1;
@@ -37,6 +43,18 @@ public class Drivetrain extends SubsystemBase {
     drive.setDeadband(0);
     Shuffleboard.getTab("Subsystems").add(this);
     Shuffleboard.getTab("Subsystems").add(drive);
+
+    frontRightEnc = frontRight.getEncoder();
+    frontLeftEnc = frontLeft.getEncoder();
+    backRightEnc = backRight.getEncoder();
+    backLeftEnc = backLeft.getEncoder();
+
+    final double OUTPUT_ROTATION_IN_INPUT_ROTATION = 1;
+
+    frontRightEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
+    frontLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
+    backRightEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
+    backLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
 
     setMotorsToBrake();
   }
