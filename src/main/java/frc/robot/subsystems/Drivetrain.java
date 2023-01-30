@@ -69,6 +69,10 @@ public class Drivetrain extends SubsystemBase {
         / 4;
   }
 
+  private double getDistanceDrivenInInches() {
+    return getWheelRotations() * 8 * Math.PI;
+  }
+
 
 
   public void arcadeDrive(double xSpeed, double rotation) {
