@@ -13,10 +13,10 @@ public class Drivetrain extends SubsystemBase {
 
   private DifferentialDrive drive;
 
-  private CANSparkMax sparkMaxFrontRight;
-  private CANSparkMax sparkMaxFrontLeft;
-  private CANSparkMax sparkMaxBackRight;
-  private CANSparkMax sparkMaxBackLeft;
+  private CANSparkMax frontRight;
+  private CANSparkMax frontLeft;
+  private CANSparkMax backRight;
+  private CANSparkMax backLeft;
 
   public Drivetrain() {
     final int FRONT_RIGHT = 1;
@@ -24,13 +24,13 @@ public class Drivetrain extends SubsystemBase {
     final int FRONT_LEFT = 7;
     final int BACK_LEFT = 4;
 
-    sparkMaxFrontRight = new CANSparkMax(FRONT_RIGHT, MotorType.kBrushless);
-    sparkMaxFrontLeft = new CANSparkMax(FRONT_LEFT, MotorType.kBrushless);
-    sparkMaxBackRight = new CANSparkMax(BACK_RIGHT, MotorType.kBrushless);
-    sparkMaxBackLeft = new CANSparkMax(BACK_LEFT, MotorType.kBrushless);
+    frontRight = new CANSparkMax(FRONT_RIGHT, MotorType.kBrushless);
+    frontLeft = new CANSparkMax(FRONT_LEFT, MotorType.kBrushless);
+    backRight = new CANSparkMax(BACK_RIGHT, MotorType.kBrushless);
+    backLeft = new CANSparkMax(BACK_LEFT, MotorType.kBrushless);
 
-    MotorControllerGroup leftMotors = new MotorControllerGroup(sparkMaxFrontLeft, sparkMaxBackLeft);
-    MotorControllerGroup rightMotors = new MotorControllerGroup(sparkMaxFrontRight, sparkMaxBackRight);
+    MotorControllerGroup leftMotors = new MotorControllerGroup(frontLeft, backLeft);
+    MotorControllerGroup rightMotors = new MotorControllerGroup(frontRight, backRight);
     rightMotors.setInverted(true);
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
@@ -49,16 +49,16 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void setMotorsToBrake() {
-    sparkMaxFrontRight.setIdleMode(IdleMode.kBrake);
-    sparkMaxFrontLeft.setIdleMode(IdleMode.kBrake);
-    sparkMaxBackRight.setIdleMode(IdleMode.kBrake);
-    sparkMaxBackLeft.setIdleMode(IdleMode.kBrake);
+    frontRight.setIdleMode(IdleMode.kBrake);
+    frontLeft.setIdleMode(IdleMode.kBrake);
+    backRight.setIdleMode(IdleMode.kBrake);
+    backLeft.setIdleMode(IdleMode.kBrake);
   }
 
   private void setMotorsToCoast() {
-    sparkMaxFrontRight.setIdleMode(IdleMode.kCoast);
-    sparkMaxFrontLeft.setIdleMode(IdleMode.kCoast);
-    sparkMaxBackRight.setIdleMode(IdleMode.kCoast);
-    sparkMaxBackLeft.setIdleMode(IdleMode.kCoast);
+    frontRight.setIdleMode(IdleMode.kCoast);
+    frontLeft.setIdleMode(IdleMode.kCoast);
+    backRight.setIdleMode(IdleMode.kCoast);
+    backLeft.setIdleMode(IdleMode.kCoast);
   }
 }
