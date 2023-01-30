@@ -56,6 +56,7 @@ public class Drivetrain extends SubsystemBase {
     backLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
 
     setMotorsToBrake();
+    resetEncoders();
     setUpShuffleboard();
   }
 
@@ -87,6 +88,14 @@ public class Drivetrain extends SubsystemBase {
     frontLeft.setIdleMode(IdleMode.kCoast);
     backRight.setIdleMode(IdleMode.kCoast);
     backLeft.setIdleMode(IdleMode.kCoast);
+  }
+
+  public void resetEncoders() {
+    frontRightEnc.setPosition(0);
+    frontLeftEnc.setPosition(0);
+    backRightEnc.setPosition(0);
+    backLeftEnc.setPosition(0);
+
   }
 
   private void setUpShuffleboard() {
