@@ -37,14 +37,14 @@ public class Grabber extends SubsystemBase {
         return close(SPEED).until(this::isFullyClosed);
     }
 
-    private final int OPEN_LIMIT_SWITCH_ID = 1;
+    private final int OPEN_LIMIT_SWITCH_ID = 0;
     private final DigitalInput openLimitSwitch = new DigitalInput(OPEN_LIMIT_SWITCH_ID);
 
     private boolean isFullyOpen() {
         return !openLimitSwitch.get();
     }
 
-    private final int CLOSED_LIMIT_SWITCH_ID = 0;
+    private final int CLOSED_LIMIT_SWITCH_ID = 1;
     private final DigitalInput closedLimitSwitch = new DigitalInput(CLOSED_LIMIT_SWITCH_ID);
 
     private boolean isFullyClosed() {
