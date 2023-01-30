@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
@@ -89,7 +90,9 @@ public class Drivetrain extends SubsystemBase {
   }
 
   private void setUpShuffleboard() {
-    Shuffleboard.getTab("Subsystems").add(this);
-    Shuffleboard.getTab("Subsystems").add(drive);
+    ShuffleboardTab tab = Shuffleboard.getTab("Drivetrain");
+
+    tab.add(this);
+    tab.add(drive);
   }
 }
