@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -19,6 +20,7 @@ public class Grabber extends SubsystemBase {
 
       motor = new CANSparkMax(MOTOR_ID, MotorType.kBrushless);
       motor.setInverted(MOTOR_INVERSION);
+      motor.setIdleMode(IdleMode.kBrake);
 
       grabberTab.addBoolean("Is Closed", this::isFullyClosed);
       grabberTab.addBoolean("Is Open", this::isFullyOpen);
