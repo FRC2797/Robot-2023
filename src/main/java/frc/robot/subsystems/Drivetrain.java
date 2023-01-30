@@ -60,6 +60,15 @@ public class Drivetrain extends SubsystemBase {
   }
 
 
+  private double getWheelRotations() {
+      return (frontLeftEnc.getPosition()
+            + frontRightEnc.getPosition()
+            + backLeftEnc.getPosition()
+            + backRightEnc.getPosition())
+        / 4;
+  }
+
+
 
   public void arcadeDrive(double xSpeed, double rotation) {
     final boolean INPUTS_SQUARED = false;
