@@ -14,15 +14,15 @@ public class Grabber extends SubsystemBase {
 
     ShuffleboardTab grabberTab = Shuffleboard.getTab("Grabber");
     public Grabber() {
-        final boolean MOTOR_INVERSION = true;
-        final int MOTOR_ID = 6;
+      final boolean MOTOR_INVERSION = true;
+      final int MOTOR_ID = 6;
 
-        motor = new CANSparkMax(MOTOR_ID, MotorType.kBrushless);
-        motor.setInverted(MOTOR_INVERSION);
+      motor = new CANSparkMax(MOTOR_ID, MotorType.kBrushless);
+      motor.setInverted(MOTOR_INVERSION);
 
-        grabberTab.addBoolean("Is Closed", this::isFullyClosed);
-        grabberTab.addBoolean("Is Open", this::isFullyOpen);
-        grabberTab.add(this);
+      grabberTab.addBoolean("Is Closed", this::isFullyClosed);
+      grabberTab.addBoolean("Is Open", this::isFullyOpen);
+      grabberTab.add(this);
     }
 
     private final double SPEED = 0.2;
