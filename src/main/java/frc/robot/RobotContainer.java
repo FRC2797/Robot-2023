@@ -64,7 +64,7 @@ public class RobotContainer {
       double rightX = controller.getRightX();
 
       drivetrain.arcadeDrive(
-        transformStickInput(leftY), 
+        transformStickInput(leftY),
         transformStickInput(rightX)
       );
     }, drivetrain);
