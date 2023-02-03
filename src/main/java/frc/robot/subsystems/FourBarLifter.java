@@ -4,6 +4,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FourBarLifter extends SubsystemBase {
@@ -15,6 +17,7 @@ public class FourBarLifter extends SubsystemBase {
     final boolean MOTOR_IS_INVERTED = true;
     motor.setInverted(MOTOR_IS_INVERTED);
     configureEncoder();
+    setUpShuffleboard();
   }
 
   public void setMotorSpeed(double speed) {
@@ -26,6 +29,12 @@ public class FourBarLifter extends SubsystemBase {
     encoder = motor.getEncoder();
     encoder.setPositionConversionFactor(SET_TO_EXTENSION_PERCENTAGE);
     encoder.setPosition(0);
+  }
+
+  private void setUpShuffleboard() {
+    ShuffleboardTab fourBarLift = Shuffleboard.getTab("Four Bar Lifter");
+    fourBarLift.addDouble("Get percentage up", this::getPercentageUp);
+    fourBarLift.addDouble("Motor Power", motor::get);
   }
 
   private double getPercentageUp() {
