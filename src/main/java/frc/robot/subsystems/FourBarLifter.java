@@ -7,7 +7,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FourBarLifter extends SubsystemBase {
-  final private int MOTOR_ID = 8;
+  final private int MOTOR_ID = 6;
   private CANSparkMax motor = new CANSparkMax(MOTOR_ID, MotorType.kBrushless);
   private RelativeEncoder encoder;
 
