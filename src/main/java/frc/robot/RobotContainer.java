@@ -7,9 +7,11 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Limelight.Pipeline;
 import frc.robot.subsystems.Grabber;
 
 import static edu.wpi.first.wpilibj2.command.Commands.*;
@@ -17,6 +19,7 @@ import static edu.wpi.first.math.MathUtil.applyDeadband;
 import static java.lang.Math.abs;
 import static frc.robot.subsystems.Limelight.*;
 import frc.robot.subsystems.Navx;
+import frc.robot.subsystems.TelescopeArm;
 
 public class RobotContainer {
 
@@ -28,6 +31,7 @@ public class RobotContainer {
   private final Limelight limelight = new Limelight();
   private final ShuffleboardTab commandsTab = Shuffleboard.getTab("Commands");
   private final Grabber grabber = new Grabber();
+  private final TelescopeArm telescopeArm = new TelescopeArm();
   private final Solenoid brakes = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
 
     CommandBase aimAprilTag = switchPipelineThenAim(Pipeline.aprilTag).withName("Aim April Tag");
@@ -43,15 +47,9 @@ public class RobotContainer {
     return startEnd(() -> brakes.set(true), () -> brakes.set(false), drivetrain).ignoringDisable(true);
   }
 
+  CommandJoystick joystick = new CommandJoystick(0);
   private void configureBindings() {
-    controller.y().onTrue(driveUntilLevelOnChargingStation());
-    controller.x().onTrue(aimAprilTag);
-    controller.b().onTrue(aimBottomPeg);
-
-    controller.a().toggleOnTrue(brakesOn());
-
-    controller.leftTrigger(0.1).onTrue(grabber.fullyOpenGrabber());
-    controller.rightTrigger(0.1).onTrue(grabber.fullyCloseGrabber());
+    telescopeArm.setDefaultCommand(telescopeArmControl());
   }
 
   public Command getAutonomousCommand() {
@@ -68,6 +66,12 @@ public class RobotContainer {
         transformStickInput(rightX)
       );
     }, drivetrain);
+  }
+
+  private CommandBase telescopeArmControl() {
+    return run(() -> {
+      telescopeArm.setSpeed(-joystick.getX());
+    }, telescopeArm);
   }
 
   private double transformStickInput(double stickInput) {
