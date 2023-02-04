@@ -107,5 +107,6 @@ public class Drivetrain extends SubsystemBase {
 
     tab.add(this);
     tab.add(drive);
+    tab.addDouble("Distance drive in inches", this::getDistanceDrivenInInches);
   }
 }
