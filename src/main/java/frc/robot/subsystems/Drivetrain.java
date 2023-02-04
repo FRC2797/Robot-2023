@@ -26,23 +26,6 @@ public class Drivetrain extends SubsystemBase {
   private RelativeEncoder backLeftEnc;
 
   public Drivetrain() {
-    final int FRONT_RIGHT = 1;
-    final int BACK_RIGHT = 2;
-    final int FRONT_LEFT = 7;
-    final int BACK_LEFT = 4;
-
-    frontRight = new CANSparkMax(FRONT_RIGHT, MotorType.kBrushless);
-    frontLeft = new CANSparkMax(FRONT_LEFT, MotorType.kBrushless);
-    backRight = new CANSparkMax(BACK_RIGHT, MotorType.kBrushless);
-    backLeft = new CANSparkMax(BACK_LEFT, MotorType.kBrushless);
-
-    MotorControllerGroup leftMotors = new MotorControllerGroup(frontLeft, backLeft);
-    MotorControllerGroup rightMotors = new MotorControllerGroup(frontRight, backRight);
-    rightMotors.setInverted(true);
-
-    drive = new DifferentialDrive(leftMotors, rightMotors);
-    drive.setDeadband(0);
-
     frontRightEnc = frontRight.getEncoder();
     frontLeftEnc = frontLeft.getEncoder();
     backRightEnc = backRight.getEncoder();
@@ -55,6 +38,7 @@ public class Drivetrain extends SubsystemBase {
     backRightEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
     backLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
 
+    configureMotorControllersAndDrivetrain();
     setMotorsToBrake();
     resetEncoders();
     setUpShuffleboard();
@@ -115,4 +99,24 @@ public class Drivetrain extends SubsystemBase {
     tab.addDouble("Back Left Encoder get position", backLeftEnc::getPosition);
     tab.addDouble("Back Right Encoder get position", backRightEnc::getPosition);
   }
+
+  private void configureMotorControllersAndDrivetrain() {
+    final int FRONT_RIGHT = 2;
+    final int BACK_RIGHT = 1;
+    final int FRONT_LEFT = 3;
+    final int BACK_LEFT = 4;
+
+    frontRight = new CANSparkMax(FRONT_RIGHT, MotorType.kBrushless);
+    frontLeft = new CANSparkMax(FRONT_LEFT, MotorType.kBrushless);
+    backRight = new CANSparkMax(BACK_RIGHT, MotorType.kBrushless);
+    backLeft = new CANSparkMax(BACK_LEFT, MotorType.kBrushless);
+
+    MotorControllerGroup leftMotors = new MotorControllerGroup(frontLeft, backLeft);
+    MotorControllerGroup rightMotors = new MotorControllerGroup(frontRight, backRight);
+    rightMotors.setInverted(true);
+
+    drive = new DifferentialDrive(leftMotors, rightMotors);
+    drive.setDeadband(0);
+  }
+
 }
