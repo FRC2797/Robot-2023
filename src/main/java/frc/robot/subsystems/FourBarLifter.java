@@ -10,24 +10,32 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FourBarLifter extends SubsystemBase {
-  final private int LEFT_ID = 6;
-  final private int RIGHT_ID = 6;
-  private CANSparkMax leftMotor = new CANSparkMax(LEFT_ID, MotorType.kBrushless);
-  private CANSparkMax rightMotor = new CANSparkMax(RIGHT_ID, MotorType.kBrushless);
-  private MotorControllerGroup motors = new MotorControllerGroup(leftMotor, rightMotor);
+  private CANSparkMax leftMotor;
+  private CANSparkMax rightMotor;
+  private MotorControllerGroup motors;
 
   private RelativeEncoder leftEncoder;
   private RelativeEncoder rightEncoder;
 
   public FourBarLifter() {
-    final boolean MOTOR_IS_INVERTED = true;
-    motors.setInverted(MOTOR_IS_INVERTED);
+    createMotors();
     configureEncoders();
     setUpShuffleboard();
   }
 
   public void setMotorSpeed(double speed) {
     motors.set(speed);
+  }
+
+  private void createMotors() {
+    final int LEFT_ID = 6;
+    final int RIGHT_ID = 6;
+    leftMotor = new CANSparkMax(LEFT_ID, MotorType.kBrushless);
+    rightMotor = new CANSparkMax(RIGHT_ID, MotorType.kBrushless);
+    motors = new MotorControllerGroup(leftMotor, rightMotor);
+
+    final boolean MOTOR_IS_INVERTED = true;
+    motors.setInverted(MOTOR_IS_INVERTED);
   }
 
   private void configureEncoders() {
@@ -41,6 +49,7 @@ public class FourBarLifter extends SubsystemBase {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
   }
+
 
   private void setUpShuffleboard() {
     ShuffleboardTab fourBarLift = Shuffleboard.getTab("Four Bar Lifter");
