@@ -69,7 +69,7 @@ public class Drivetrain extends SubsystemBase {
         / 4;
   }
 
-  private double getDistanceDrivenInInches() {
+  public double getDistanceDrivenInInches() {
     return getWheelRotations() * 8 * Math.PI;
   }
 
