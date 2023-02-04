@@ -74,16 +74,16 @@ public class RobotContainer {
 
   private Command liftControl() {
     return run(() -> {
-      double throttle = joystick.getThrottle();
-      fourBarLifter.setMotorSpeed(transformThrottle(throttle));
+      double y = joystick.getY();
+      fourBarLifter.setMotorSpeed(transformJoystickY(y));
     }, fourBarLifter);
   }
 
-  private double transformThrottle(double throttle) {
-    final double DEADBAND = 0.5;
-    throttle = applyDeadband(throttle, DEADBAND);
-    throttle *= -1;
-    return throttle;
+  private double transformJoystickY(double y) {
+    final double DEADBAND = 0.1;
+    y = applyDeadband(y, DEADBAND);
+    y *= -1;
+    return y;
   }
 
   private Command teleopDrive() {
