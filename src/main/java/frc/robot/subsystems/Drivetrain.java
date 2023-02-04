@@ -29,7 +29,6 @@ public class Drivetrain extends SubsystemBase {
 
     configureMotorControllersAndDrivetrain();
     configureEncoders();
-    setMotorsToBrake();
     resetEncoders();
     setUpShuffleboard();
   }
@@ -107,6 +106,7 @@ public class Drivetrain extends SubsystemBase {
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(0);
+    setMotorsToBrake();
   }
 
   private void configureEncoders() {
