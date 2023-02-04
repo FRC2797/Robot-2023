@@ -66,6 +66,8 @@ public class FourBarLifter extends SubsystemBase {
     ShuffleboardTab fourBarLift = Shuffleboard.getTab("Four Bar Lifter");
     fourBarLift.addDouble("Get percentage up", this::getPercentageUp);
     fourBarLift.addDouble("Motor Power", motors::get);
+    fourBarLift.addDouble("Left Motor Encoder", leftEncoder::getPosition);
+    fourBarLift.addDouble("Right Motor Encoder", rightEncoder::getPosition);
   }
 
   public double getPercentageUp() {
