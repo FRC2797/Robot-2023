@@ -83,6 +83,7 @@ public class RobotContainer {
     final double DEADBAND = 0.1;
     y = applyDeadband(y, DEADBAND);
     y *= -1;
+    y *= y;
     return y;
   }
 
