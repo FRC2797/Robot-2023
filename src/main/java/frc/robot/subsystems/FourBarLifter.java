@@ -66,7 +66,7 @@ public class FourBarLifter extends SubsystemBase {
     fourBarLift.addDouble("Motor Power", motors::get);
   }
 
-  private double getPercentageUp() {
+  public double getPercentageUp() {
     return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2;
   }
 }
