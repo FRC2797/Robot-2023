@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -39,6 +40,11 @@ public class FourBarLifter extends SubsystemBase {
 
     final boolean RIGHT_IS_INVERTED = false;
     rightMotor.setInverted(RIGHT_IS_INVERTED);
+
+    // COAST IS USED BECAUSE A BANG BANG CONTROLLER
+    // IS USED TO CONTROL FOUR BAR LIFT
+    leftMotor.setIdleMode(IdleMode.kCoast);
+    rightMotor.setIdleMode(IdleMode.kCoast);
   }
 
   private void configureEncoders() {
