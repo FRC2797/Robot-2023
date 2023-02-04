@@ -26,19 +26,9 @@ public class Drivetrain extends SubsystemBase {
   private RelativeEncoder backLeftEnc;
 
   public Drivetrain() {
-    frontRightEnc = frontRight.getEncoder();
-    frontLeftEnc = frontLeft.getEncoder();
-    backRightEnc = backRight.getEncoder();
-    backLeftEnc = backLeft.getEncoder();
-
-    final double OUTPUT_ROTATION_IN_INPUT_ROTATION = 1/8.45864661654;
-
-    frontRightEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
-    frontLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
-    backRightEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
-    backLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
 
     configureMotorControllersAndDrivetrain();
+    configureEncoders();
     setMotorsToBrake();
     resetEncoders();
     setUpShuffleboard();
@@ -119,4 +109,17 @@ public class Drivetrain extends SubsystemBase {
     drive.setDeadband(0);
   }
 
+  private void configureEncoders() {
+    frontRightEnc = frontRight.getEncoder();
+    frontLeftEnc = frontLeft.getEncoder();
+    backRightEnc = backRight.getEncoder();
+    backLeftEnc = backLeft.getEncoder();
+
+    final double OUTPUT_ROTATION_IN_INPUT_ROTATION = 1/8.45864661654;
+
+    frontRightEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
+    frontLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
+    backRightEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
+    backLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
+  }
 }
