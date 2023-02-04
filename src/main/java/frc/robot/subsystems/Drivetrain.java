@@ -62,11 +62,13 @@ public class Drivetrain extends SubsystemBase {
 
 
   private double getWheelRotations() {
-      return (frontLeftEnc.getPosition()
-            + frontRightEnc.getPosition()
-            + backLeftEnc.getPosition()
-            + backRightEnc.getPosition())
-        / 4;
+      double total =
+        frontLeftEnc.getPosition()
+        + (frontRightEnc.getPosition() * -1)
+        + backLeftEnc.getPosition()
+        + (backRightEnc.getPosition() * -1);
+
+      return total / 4;
   }
 
   public double getDistanceDrivenInInches() {
@@ -109,5 +111,10 @@ public class Drivetrain extends SubsystemBase {
     tab.add(this);
     tab.add(drive);
     tab.addDouble("Distance drive in inches", this::getDistanceDrivenInInches);
+    tab.addDouble("Get wheel rotations", this::getWheelRotations);
+    tab.addDouble("Front Left Encoder get position", frontLeftEnc::getPosition);
+    tab.addDouble("Front Right Encoder get position", frontRightEnc::getPosition);
+    tab.addDouble("Back Left Encoder get position", backLeftEnc::getPosition);
+    tab.addDouble("Back Right Encoder get position", backRightEnc::getPosition);
   }
 }
