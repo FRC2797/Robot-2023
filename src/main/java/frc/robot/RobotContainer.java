@@ -103,6 +103,21 @@ public class RobotContainer {
     );
   }
 
+  // TODO: Doesn't reset distance after each
+  private Command driveDistance(double inches) {
+    final double PROP_TERM = 0.00;
+    final double MIN_TERM = 0.05;
+    final double distanceToDrive = inches;
+    return run(() -> {
+      double distanceDriven = drivetrain.getDistanceDrivenInInches();
+      double error = distanceToDrive - distanceDriven;
+      double speed = (error * PROP_TERM) + MIN_TERM;
+
+      drivetrain.arcadeDrive(speed, 0);
+    }, drivetrain)
+      .until(() -> drivetrain.getDistanceDrivenInInches() > inches);
+  }
+
   private Command waitUntilLevel() {
     final double LEVELED_VALUE = 1;
 

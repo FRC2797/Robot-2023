@@ -63,12 +63,10 @@ public class Drivetrain extends SubsystemBase {
 
   private double getWheelRotations() {
       double total =
-        frontLeftEnc.getPosition()
         + (frontRightEnc.getPosition() * -1)
-        + backLeftEnc.getPosition()
         + (backRightEnc.getPosition() * -1);
 
-      return total / 4;
+      return total / 2;
   }
 
   public double getDistanceDrivenInInches() {
