@@ -104,7 +104,7 @@ public class RobotContainer {
   }
 
   private Command driveDistance(double inches) {
-    final double PROP_TERM = 0.00;
+    final double PROP_TERM = 0.004;
     final double MIN_TERM = inches > 0 ? 0.05 : -0.05;
     final double distanceToDrive = inches;
     return runOnce(drivetrain::resetEncoders).andThen(
