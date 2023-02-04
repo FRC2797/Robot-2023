@@ -106,8 +106,9 @@ public class RobotContainer {
   // TODO: Doesn't reset distance after each
   private Command driveDistance(double inches) {
     final double PROP_TERM = 0.00;
-    final double MIN_TERM = 0.05;
+    final double MIN_TERM = inches > 0 ? 0.05 : -0.05;
     final double distanceToDrive = inches;
+    drivetrain.resetEncoders();
     return run(() -> {
       double distanceDriven = drivetrain.getDistanceDrivenInInches();
       double error = distanceToDrive - distanceDriven;
@@ -115,7 +116,7 @@ public class RobotContainer {
 
       drivetrain.arcadeDrive(speed, 0);
     }, drivetrain)
-      .until(() -> drivetrain.getDistanceDrivenInInches() > inches);
+      .until(() -> abs(drivetrain.getDistanceDrivenInInches()) > abs(inches));
   }
 
   private Command waitUntilLevel() {
