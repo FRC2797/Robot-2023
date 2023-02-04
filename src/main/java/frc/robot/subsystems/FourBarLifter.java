@@ -50,7 +50,7 @@ public class FourBarLifter extends SubsystemBase {
   }
 
   private void configureEncoders() {
-    final double SET_TO_EXTENSION_PERCENTAGE = -1/2.54;
+    final double SET_TO_EXTENSION_PERCENTAGE = -1/2.404;
     leftEncoder = leftMotor.getEncoder();
     rightEncoder = rightMotor.getEncoder();
 
