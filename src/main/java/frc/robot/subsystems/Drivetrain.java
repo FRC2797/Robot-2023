@@ -29,7 +29,6 @@ public class Drivetrain extends SubsystemBase {
 
     configureMotorControllersAndDrivetrain();
     configureEncoders();
-    resetEncoders();
     setUpShuffleboard();
   }
 
@@ -121,5 +120,6 @@ public class Drivetrain extends SubsystemBase {
     frontLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
     backRightEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
     backLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
+    resetEncoders();
   }
 }
