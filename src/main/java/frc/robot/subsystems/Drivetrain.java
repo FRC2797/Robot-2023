@@ -72,7 +72,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getDistanceDrivenInInches() {
-    final double WHEEL_DIAMETER = 8;
+    final double WHEEL_DIAMETER = 7 + (3/8);
     return getWheelRotations() * WHEEL_DIAMETER * Math.PI;
   }
 
