@@ -38,7 +38,6 @@ public class RobotContainer {
     CommandBase aimBottomPeg = switchPipelineThenAim(Pipeline.bottomPeg).withName("Aim Bottom Peg");
     CommandBase aimTopPeg = switchPipelineThenAim(Pipeline.topPeg).withName("Aim Top Peg");
   public RobotContainer() {
-    drivetrain.setDefaultCommand(teleopDrive());
     configureBindings();
 
   }
