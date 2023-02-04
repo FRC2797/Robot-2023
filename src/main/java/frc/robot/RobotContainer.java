@@ -1,6 +1,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.BangBangController;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -53,6 +54,22 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return null;
+  }
+
+  private Command liftToPosition(double percentage) {
+    final double TOLERANCE = 0.05;
+    BangBangController bangBangController = new BangBangController(TOLERANCE);
+    bangBangController.setSetpoint(percentage);
+    final double MOTOR_OUTPUT = 0.15;
+    return run(() -> {
+      double motorSpeed =
+        bangBangController.calculate(
+          fourBarLifter.getPercentageUp()
+        )
+        * MOTOR_OUTPUT;
+
+      fourBarLifter.setMotorSpeed(motorSpeed);
+    }, fourBarLifter);
   }
 
   private Command liftControl() {
