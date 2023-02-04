@@ -48,7 +48,7 @@ public class Drivetrain extends SubsystemBase {
     backRightEnc = backRight.getEncoder();
     backLeftEnc = backLeft.getEncoder();
 
-    final double OUTPUT_ROTATION_IN_INPUT_ROTATION = 1/8.19;
+    final double OUTPUT_ROTATION_IN_INPUT_ROTATION = 1/8.45864661654;
 
     frontRightEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
     frontLeftEnc.setPositionConversionFactor(OUTPUT_ROTATION_IN_INPUT_ROTATION);
