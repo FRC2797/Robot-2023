@@ -34,8 +34,11 @@ public class FourBarLifter extends SubsystemBase {
     rightMotor = new CANSparkMax(RIGHT_ID, MotorType.kBrushless);
     motors = new MotorControllerGroup(leftMotor, rightMotor);
 
-    final boolean MOTOR_IS_INVERTED = true;
-    motors.setInverted(MOTOR_IS_INVERTED);
+    final boolean LEFT_IS_INVERTED = false;
+    leftMotor.setInverted(LEFT_IS_INVERTED);
+
+    final boolean RIGHT_IS_INVERTED = false;
+    rightMotor.setInverted(RIGHT_IS_INVERTED);
   }
 
   private void configureEncoders() {
