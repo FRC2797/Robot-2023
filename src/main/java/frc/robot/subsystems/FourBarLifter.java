@@ -49,13 +49,13 @@ public class FourBarLifter extends SubsystemBase {
     rightMotor.setIdleMode(IdleMode.kCoast);
   }
 
+  final double SET_TO_EXTENSION_PERCENTAGE = -(1/3.3);
   private void configureEncoders() {
-    final double SET_TO_EXTENSION_PERCENTAGE = -1/2.404;
     leftEncoder = leftMotor.getEncoder();
     rightEncoder = rightMotor.getEncoder();
 
-    leftEncoder.setPositionConversionFactor(SET_TO_EXTENSION_PERCENTAGE);
-    rightEncoder.setPositionConversionFactor(SET_TO_EXTENSION_PERCENTAGE);
+    leftEncoder.setPositionConversionFactor(1);
+    rightEncoder.setPositionConversionFactor(1);
 
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
@@ -71,7 +71,9 @@ public class FourBarLifter extends SubsystemBase {
   }
 
   public double getPercentageUp() {
-    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2;
+    // Set  position conversion factor method wasn't doing anything
+    // so I'm just gonna multiply it myself
+    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2 * SET_TO_EXTENSION_PERCENTAGE;
   }
 }
 
