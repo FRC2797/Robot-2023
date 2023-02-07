@@ -49,6 +49,7 @@ public class RobotContainer {
   CommandJoystick joystick = new CommandJoystick(0);
   private void configureBindings() {
     fourBarLifter.setDefaultCommand(liftControl());
+    joystick.frontTrigger.onTrue(liftToPosition(0.5));
   }
 
   public Command getAutonomousCommand() {
