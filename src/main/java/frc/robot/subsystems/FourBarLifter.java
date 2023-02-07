@@ -29,7 +29,7 @@ public class FourBarLifter extends SubsystemBase {
   }
 
   private void createMotors() {
-    final int LEFT_ID = 6;
+    final int LEFT_ID = 3;
     final int RIGHT_ID = 8;
     leftMotor = new CANSparkMax(LEFT_ID, MotorType.kBrushless);
     rightMotor = new CANSparkMax(RIGHT_ID, MotorType.kBrushless);
