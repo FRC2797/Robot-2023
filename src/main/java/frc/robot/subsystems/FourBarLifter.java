@@ -25,7 +25,7 @@ public class FourBarLifter extends SubsystemBase {
   }
 
   public void setMotorSpeed(double speed) {
-    leftMotor.set(speed);
+    motors.set(speed);
   }
 
   private void createMotors() {
