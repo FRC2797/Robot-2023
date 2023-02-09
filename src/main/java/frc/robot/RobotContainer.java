@@ -39,7 +39,6 @@ public class RobotContainer {
     CommandBase aimTopPeg = switchPipelineThenAim(Pipeline.topPeg).withName("Aim Top Peg");
   public RobotContainer() {
     configureBindings();
-
   }
 
   private CommandBase brakesOn() {
