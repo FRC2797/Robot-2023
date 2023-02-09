@@ -25,7 +25,7 @@ public class FourBarLifter extends SubsystemBase {
   }
 
   public void setMotorSpeed(double speed) {
-    motors.set(speed);
+    leftMotor.set(speed);
   }
 
   private void createMotors() {
@@ -65,15 +65,14 @@ public class FourBarLifter extends SubsystemBase {
   private void setUpShuffleboard() {
     ShuffleboardTab fourBarLift = Shuffleboard.getTab("Four Bar Lifter");
     fourBarLift.addDouble("Get percentage up", this::getPercentageUp);
-    fourBarLift.addDouble("Motor Power", motors::get);
+    fourBarLift.addDouble("Left motor", leftMotor::get);
     fourBarLift.addDouble("Left Motor Encoder", leftEncoder::getPosition);
-    fourBarLift.addDouble("Right Motor Encoder", rightEncoder::getPosition);
   }
 
   public double getPercentageUp() {
     // Set  position conversion factor method wasn't doing anything
     // so I'm just gonna multiply it myself
-    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2 * SET_TO_EXTENSION_PERCENTAGE;
+    return (leftEncoder.getPosition()) * SET_TO_EXTENSION_PERCENTAGE;
   }
 }
 
