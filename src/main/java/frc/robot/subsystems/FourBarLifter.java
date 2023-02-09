@@ -36,8 +36,8 @@ public class FourBarLifter extends SubsystemBase {
     motors = new MotorControllerGroup(leftMotor, rightMotor);
 
     final boolean MOTORS_IS_INVERTED = true;
-    final boolean LEFT_IS_INVERTED = true;
-    final boolean RIGHT_IS_INVERTED = false;
+    final boolean LEFT_IS_INVERTED = false;
+    final boolean RIGHT_IS_INVERTED = true;
 
     motors.setInverted(MOTORS_IS_INVERTED);
     leftMotor.setInverted(LEFT_IS_INVERTED);
