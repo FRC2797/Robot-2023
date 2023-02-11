@@ -1,10 +1,9 @@
 package frc.robot.subsystems;
 
-
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -32,21 +31,16 @@ public class Drivetrain extends SubsystemBase {
     setUpShuffleboard();
   }
 
-
   private double getWheelRotations() {
-      double total =
-        + (frontRightEnc.getPosition() * -1)
-        + (backRightEnc.getPosition() * -1);
+    double total = +(frontRightEnc.getPosition() * -1) + (backRightEnc.getPosition() * -1);
 
-      return total / 2;
+    return total / 2;
   }
 
   public double getDistanceDrivenInInches() {
-    final double WHEEL_DIAMETER = 7 + (3/8);
+    final double WHEEL_DIAMETER = 7 + (3 / 8);
     return getWheelRotations() * WHEEL_DIAMETER * Math.PI;
   }
-
-
 
   public void arcadeDrive(double xSpeed, double rotation) {
     final boolean INPUTS_SQUARED = false;
@@ -72,7 +66,6 @@ public class Drivetrain extends SubsystemBase {
     frontLeftEnc.setPosition(0);
     backRightEnc.setPosition(0);
     backLeftEnc.setPosition(0);
-
   }
 
   private void setUpShuffleboard() {
@@ -114,7 +107,7 @@ public class Drivetrain extends SubsystemBase {
     backRightEnc = backRight.getEncoder();
     backLeftEnc = backLeft.getEncoder();
 
-    final double GEAR_RATIO = 1/8.45864661654;
+    final double GEAR_RATIO = 1 / 8.45864661654;
 
     frontRightEnc.setPositionConversionFactor(GEAR_RATIO);
     frontLeftEnc.setPositionConversionFactor(GEAR_RATIO);
