@@ -1,12 +1,12 @@
 package frc.robot.subsystems;
 
+import static edu.wpi.first.wpilibj2.command.Commands.*;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static edu.wpi.first.wpilibj2.command.Commands.*;
 
 public class Limelight extends SubsystemBase {
   private final int ENTRY_NOT_FOUND = -9999;
@@ -25,7 +25,6 @@ public class Limelight extends SubsystemBase {
   }
 
   private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-
 
   public double getHorizontalOffset() {
     NetworkTableEntry horizontalOffset = table.getEntry("tx");

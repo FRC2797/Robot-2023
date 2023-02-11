@@ -1,5 +1,9 @@
-
 package frc.robot;
+
+import static edu.wpi.first.math.MathUtil.applyDeadband;
+import static edu.wpi.first.wpilibj2.command.Commands.*;
+import static frc.robot.subsystems.Limelight.*;
+import static java.lang.Math.abs;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -10,21 +14,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Grabber;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Limelight.Pipeline;
-import frc.robot.subsystems.Grabber;
-
-import static edu.wpi.first.wpilibj2.command.Commands.*;
-import static edu.wpi.first.math.MathUtil.applyDeadband;
-import static java.lang.Math.abs;
-import static frc.robot.subsystems.Limelight.*;
 import frc.robot.subsystems.Navx;
 import frc.robot.subsystems.TelescopeArm;
 
 public class RobotContainer {
 
-  private final CommandXboxController controller =
-      new CommandXboxController(0);
+  private final CommandXboxController controller = new CommandXboxController(0);
 
   private final Drivetrain drivetrain = new Drivetrain();
   private final Navx navx = new Navx();
@@ -34,19 +32,21 @@ public class RobotContainer {
   private final TelescopeArm telescopeArm = new TelescopeArm();
   private final Solenoid brakes = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
 
-    CommandBase aimAprilTag = switchPipelineThenAim(Pipeline.aprilTag).withName("Aim April Tag");
-    CommandBase aimBottomPeg = switchPipelineThenAim(Pipeline.bottomPeg).withName("Aim Bottom Peg");
-    CommandBase aimTopPeg = switchPipelineThenAim(Pipeline.topPeg).withName("Aim Top Peg");
+  CommandBase aimAprilTag = switchPipelineThenAim(Pipeline.aprilTag).withName("Aim April Tag");
+  CommandBase aimBottomPeg = switchPipelineThenAim(Pipeline.bottomPeg).withName("Aim Bottom Peg");
+  CommandBase aimTopPeg = switchPipelineThenAim(Pipeline.topPeg).withName("Aim Top Peg");
+
   public RobotContainer() {
     configureBindings();
-
   }
 
   private CommandBase brakesOn() {
-    return startEnd(() -> brakes.set(true), () -> brakes.set(false), drivetrain).ignoringDisable(true);
+    return startEnd(() -> brakes.set(true), () -> brakes.set(false), drivetrain)
+        .ignoringDisable(true);
   }
 
   CommandJoystick joystick = new CommandJoystick(0);
+
   private void configureBindings() {
     telescopeArm.setDefaultCommand(telescopeArmControl());
   }
@@ -56,21 +56,22 @@ public class RobotContainer {
   }
 
   private Command teleopDrive() {
-    return run(() -> {
-      double leftY = controller.getLeftY();
-      double rightX = controller.getRightX();
+    return run(
+      () -> {
+        double leftY = controller.getLeftY();
+        double rightX = controller.getRightX();
 
-      drivetrain.arcadeDrive(
-        transformStickInput(leftY),
-        transformStickInput(rightX)
-      );
-    }, drivetrain);
+          drivetrain.arcadeDrive(transformStickInput(leftY), transformStickInput(rightX));
+        },
+      drivetrain);
   }
 
   private CommandBase telescopeArmControl() {
-    return run(() -> {
-      telescopeArm.setSpeed(applyDeadband(-joystick.getX(), 0.2));
-    }, telescopeArm);
+    return run(
+      () -> {
+        telescopeArm.setSpeed(applyDeadband(-joystick.getX(), 0.2));
+      },
+    telescopeArm);
   }
 
   private double transformStickInput(double stickInput) {
@@ -89,34 +90,36 @@ public class RobotContainer {
     final double WAIT_BEFORE_OVERSHOOT_CORRECTION = 0.5;
     final double PITCHED_VALUE = 15;
 
-
-    Command driveForwardSlowly = run(() -> drivetrain.arcadeDrive(SLOW_SPEED_FORWARD, 0), drivetrain);
+    Command driveForwardSlowly =
+        run(() -> drivetrain.arcadeDrive(SLOW_SPEED_FORWARD, 0), drivetrain);
     Command waitUntilPitched = waitUntil(() -> Math.abs(navx.getPitch()) > PITCHED_VALUE);
 
-    Command driveBackwardSlowly = run(() -> drivetrain.arcadeDrive(SLOW_SPEED_BACKWARD, 0), drivetrain);
+    Command driveBackwardSlowly =
+        run(() -> drivetrain.arcadeDrive(SLOW_SPEED_BACKWARD, 0), drivetrain);
 
-    return (
-      driveForwardSlowly.raceWith(waitUntilPitched.andThen(waitUntilLevel()))
+    return (driveForwardSlowly
+      .raceWith(waitUntilPitched.andThen(waitUntilLevel()))
       .andThen(
-        driveBackwardSlowly.raceWith(waitSeconds(WAIT_BEFORE_OVERSHOOT_CORRECTION).andThen(waitUntilLevel()))
-      )
-    );
+        driveBackwardSlowly.raceWith(
+          waitSeconds(WAIT_BEFORE_OVERSHOOT_CORRECTION).andThen(waitUntilLevel()))));
   }
 
   private Command driveDistance(double inches) {
     final double PROP_TERM = 0.00;
     final double MIN_TERM = inches > 0 ? 0.05 : -0.05;
     final double distanceToDrive = inches;
-    return runOnce(drivetrain::resetEncoders).andThen(
-      run(() -> {
-        double distanceDriven = drivetrain.getDistanceDrivenInInches();
-        double error = distanceToDrive - distanceDriven;
-        double speed = (error * PROP_TERM) + MIN_TERM;
+    return runOnce(drivetrain::resetEncoders)
+      .andThen(
+        run(
+          () -> {
+            double distanceDriven = drivetrain.getDistanceDrivenInInches();
+            double error = distanceToDrive - distanceDriven;
+            double speed = (error * PROP_TERM) + MIN_TERM;
 
-        drivetrain.arcadeDrive(speed, 0);
-    }, drivetrain)
-        .until(() -> abs(drivetrain.getDistanceDrivenInInches()) > abs(inches))
-    );
+            drivetrain.arcadeDrive(speed, 0);
+          },
+          drivetrain)
+            .until(() -> abs(drivetrain.getDistanceDrivenInInches()) > abs(inches)));
   }
 
   private Command waitUntilLevel() {
@@ -128,16 +131,20 @@ public class RobotContainer {
   private CommandBase aimWithLimelight() {
     final double LINED_UP = 1;
     final double SPEED = 0.04;
-    return run(() -> {
-      double horizontalOffset = limelight.getHorizontalOffset();
+    return run(
+      () -> {
+        double horizontalOffset = limelight.getHorizontalOffset();
 
-      if (horizontalOffset > LINED_UP) {
-        drivetrain.arcadeDrive(0, -SPEED);
-      } else if (horizontalOffset < LINED_UP) {
-        drivetrain.arcadeDrive(0, SPEED);
-      }
-
-    }, drivetrain).until(() -> abs(limelight.getHorizontalOffset()) < LINED_UP).withName("aim with limelight");
+        if (horizontalOffset > LINED_UP) {
+          drivetrain.arcadeDrive(0, -SPEED);
+        } else if (horizontalOffset < LINED_UP) {
+          drivetrain.arcadeDrive(0, SPEED);
+        }
+      },
+      drivetrain
+    )
+    .until(() -> abs(limelight.getHorizontalOffset()) < LINED_UP)
+    .withName("aim with limelight");
   }
 
   private CommandBase switchPipelineThenAim(Pipeline pipeline) {
