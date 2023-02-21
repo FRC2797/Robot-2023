@@ -48,7 +48,7 @@ public class RobotContainer {
   CommandJoystick joystick = new CommandJoystick(0);
 
   private void configureBindings() {
-    telescopeArm.setDefaultCommand(telescopeArmControl());
+    drivetrain.setDefaultCommand(teleopDrive());
   }
 
   public Command getAutonomousCommand() {
