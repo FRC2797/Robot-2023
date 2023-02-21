@@ -40,6 +40,10 @@ public class RobotContainer {
     configureBindings();
   }
 
+  private void configureBindings() {
+    drivetrain.setDefaultCommand(teleopDrive());
+  }
+
   private CommandBase brakesOn() {
     return startEnd(() -> brakes.set(true), () -> brakes.set(false), drivetrain)
       .ignoringDisable(true);
@@ -47,9 +51,6 @@ public class RobotContainer {
 
   CommandJoystick joystick = new CommandJoystick(0);
 
-  private void configureBindings() {
-    drivetrain.setDefaultCommand(teleopDrive());
-  }
 
   public Command getAutonomousCommand() {
     return null;
