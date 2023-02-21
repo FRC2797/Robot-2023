@@ -82,8 +82,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   private void configureMotorControllersAndDrivetrain() {
-    final int FRONT_RIGHT = 2;
-    final int BACK_RIGHT = 1;
+    final int FRONT_RIGHT = 1;
+    final int BACK_RIGHT = 2;
     final int FRONT_LEFT = 3;
     final int BACK_LEFT = 4;
 
