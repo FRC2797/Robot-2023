@@ -70,7 +70,7 @@ public class RobotContainer {
   private CommandBase telescopeArmControl() {
     return run(
       () -> {
-        telescopeArm.setSpeed(applyDeadband(-joystick.getX(), 0.2));
+        telescopeArm.setSpeed(applyDeadband(-controller.getLeftY(), 0.2));
       },
     telescopeArm);
   }
