@@ -16,7 +16,7 @@ public class Lift extends SubsystemBase {
   public Lift() {
     final int MOTOR_ID = 2;
     final boolean IS_INVERTED = true;
-    final boolean IS_BRAKED = false;
+    final boolean IS_BRAKED = true;
 
     motor = new CANSparkMax(MOTOR_ID, MotorType.kBrushless);
     motor.setInverted(IS_INVERTED);
