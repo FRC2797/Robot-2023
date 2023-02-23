@@ -10,14 +10,14 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class RobotContainerForTesting {
   Lift lift = new Lift();
-  CommandJoystick joystick = new CommandJoystick(0);
+  CommandXboxController controller = new CommandXboxController(0);
   public RobotContainerForTesting() {
-    joystick.five.toggleOnTrue(liftToPosition(0.5 * 2 * Math.PI));
-    joystick.six.toggleOnTrue(liftToPosition(0.25 * 2 * Math.PI));
-    joystick.three.toggleOnTrue(liftToPosition(0.1 * 2 * Math.PI));
+    final double SPEED = 1;
+    controller.y().whileTrue(startEnd(() -> lift.setSpeed(SPEED), () -> lift.setSpeed(0), lift));
   }
 
   private CommandBase liftToPosition(double positionRadians) {
