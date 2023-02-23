@@ -14,7 +14,7 @@ public class Lift extends SubsystemBase {
   final private RelativeEncoder encoder;
 
   public Lift() {
-    final int MOTOR_ID = 3;
+    final int MOTOR_ID = 2;
     final boolean IS_INVERTED = false;
     final boolean IS_BRAKED = false;
 
