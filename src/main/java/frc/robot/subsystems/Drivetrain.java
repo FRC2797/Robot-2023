@@ -47,7 +47,7 @@ public class Drivetrain extends SubsystemBase {
     drive.arcadeDrive(xSpeed, rotation, INPUTS_SQUARED);
   }
 
-  public void setMotorsToBrake() {
+  private void setMotorsToBrake() {
     frontRight.setIdleMode(IdleMode.kBrake);
     frontLeft.setIdleMode(IdleMode.kBrake);
     backRight.setIdleMode(IdleMode.kBrake);
