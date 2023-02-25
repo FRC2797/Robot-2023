@@ -18,17 +18,21 @@ import static java.lang.Math.abs;
 import static edu.wpi.first.wpilibj2.command.Commands.*;
 
 final public class InlineCommands {
-  private final static Drivetrain drivetrain = new Drivetrain();
-  private final static Navx navx = new Navx();
-  private final static Limelight limelight = new Limelight();
-  private final static Grabber grabber = new Grabber();
+  private final static Drivetrain drivetrain = null;
+  private final static Navx navx = null;
+  private final static Limelight limelight = null;
+  private final static Grabber grabber = null;
   private final static TelescopeArm telescopeArm = new TelescopeArm();
-  private final static Solenoid brakes = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+  private final static Solenoid brakes = null;
 
   private final static CommandXboxController controller = new CommandXboxController(0);
 
   private InlineCommands() {
 
+  }
+
+  public static CommandBase setTelescopicArmPosition(double percentageSetpoint) {
+    return telescopeArm.setPositionCommand(percentageSetpoint);
   }
 
   public static CommandBase fullyOpenGrabber() {
