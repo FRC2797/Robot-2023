@@ -22,7 +22,7 @@ final public class InlineCommands {
   private final static Navx navx = null;
   private final static Limelight limelight = null;
   private final static Grabber grabber = null;
-  private final static TelescopeArm telescopeArm = new TelescopeArm();
+  private final static TelescopeArm telescopeArm = null;
   private final static Solenoid brakes = null;
 
   private final static CommandXboxController controller = new CommandXboxController(0);
