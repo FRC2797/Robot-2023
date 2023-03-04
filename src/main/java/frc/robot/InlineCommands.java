@@ -1,12 +1,16 @@
 package frc.robot;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Grabber;
+import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Navx;
 import frc.robot.subsystems.TelescopeArm;
@@ -24,6 +28,7 @@ final public class InlineCommands {
   public final static Grabber grabber = new Grabber();
   public final static TelescopeArm telescopeArm = new TelescopeArm();
   public final static Solenoid brakes = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+  public final static Lift lift = new Lift();
 
   public final static CommandXboxController controller = new CommandXboxController(0);
 
@@ -151,6 +156,35 @@ final public class InlineCommands {
 
   public static CommandBase aimTopPeg() {
     return switchPipelineThenAim(Pipeline.topPeg).withName("Aim Top Peg");
+  }
+
+  public static CommandBase liftToPosition(double positionRadians) {
+    final double kS = 0.039003;
+    final double kV = 0.42996;
+    final double kA = 0.028221;
+    final double kG = 0.10426;
+
+    ArmFeedforward feedforward = new ArmFeedforward(kS, kG, kV, kA);
+
+
+    final double kP = 0;
+    final double kI = 0;
+    final double kD = 0;
+
+    PIDController pid = new PIDController(kP, kI, kD);
+    Shuffleboard.getTab("Lift").add(pid);
+
+    return run(() -> {
+      double voltage = feedforward.calculate(positionRadians, 0)
+        + pid.calculate(lift.getAngleInRadians(), positionRadians);
+
+      lift.setVoltage(voltage);
+    }, lift)
+    .beforeStarting(() -> pid.reset())
+    .finallyDo(end -> {
+      lift.setVoltage(0);
+      lift.setSpeed(0);
+    });
   }
 
   private static CommandBase switchPipelineThenAim(Pipeline pipeline) {
