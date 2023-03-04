@@ -11,6 +11,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    // We won't need different lift heights for
+    // pegs and shelves. We'll just lift to the
+    // height of the pegs and the cube can just
+    // drop down
   }
 
   public Command getAutonomousCommand() {
