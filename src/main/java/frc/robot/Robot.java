@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class Robot extends TimedRobot {
   private final CANSparkMax grabberMotor = new CANSparkMax(2, MotorType.kBrushless);
-  private final double MAX_MOTOR_SPEED = 0.15;
+  private final double MAX_MOTOR_SPEED = 0.41;
   XboxController controller = new XboxController(0);
 
   @Override
