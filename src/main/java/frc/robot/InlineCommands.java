@@ -18,12 +18,12 @@ import static java.lang.Math.abs;
 import static edu.wpi.first.wpilibj2.command.Commands.*;
 
 final public class InlineCommands {
-  private final static Drivetrain drivetrain = new Drivetrain();
-  private final static Navx navx = new Navx();
-  private final static Limelight limelight = new Limelight();
-  private final static Grabber grabber = new Grabber();
-  private final static TelescopeArm telescopeArm = new TelescopeArm();
-  private final static Solenoid brakes = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+  public final static Drivetrain drivetrain = new Drivetrain();
+  public final static Navx navx = new Navx();
+  public final static Limelight limelight = new Limelight();
+  public final static Grabber grabber = new Grabber();
+  public final static TelescopeArm telescopeArm = new TelescopeArm();
+  public final static Solenoid brakes = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
 
   private final static CommandXboxController controller = new CommandXboxController(0);
 
