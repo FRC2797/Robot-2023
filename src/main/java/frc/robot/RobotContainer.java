@@ -1,11 +1,17 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import static edu.wpi.first.wpilibj2.command.Commands.*;
 import static frc.robot.InlineCommands.*;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class RobotContainer {
   private final boolean IS_SEMI_AUTONOMOUS = false;
@@ -45,6 +51,25 @@ public class RobotContainer {
     // pegs and shelves. We'll just lift to the
     // height of the pegs and the cube can just
     // drop down
+
+    // It'll also be good enough to just always aim at the lower peg
+    // If there it isn't available it'll automatically
+    // aim at the top peg
+
+    bindSemiAutoLiftCommands(c.leftBumper(), InlineCommands::aimAprilTag);
+    // TODO: When going for the middle it should aim for lower peg and
+    // going for the top it should aim for the top peg
+    bindSemiAutoLiftCommands(c.rightBumper(), InlineCommands::aimLowerPeg);
+
+    c.rightTrigger().whileTrue(grabberOpen());
+  }
+
+  private void bindSemiAutoLiftCommands(Trigger bumper, Supplier<Command> aim) {
+    CommandBase dropGamePiece = openGrabberThenStop();
+
+    bumper.and(c.povUp()).onTrue(sequence(aim.get(), liftToTop(), dropGamePiece));
+    bumper.and(c.povLeft().or(c.povRight())).onTrue(sequence(aim.get(), liftToMiddle(), dropGamePiece));
+    bumper.and(c.povDown()).onTrue(sequence(aim.get(), liftToBottom(), dropGamePiece));
   }
 
   public Command getAutonomousCommand() {
