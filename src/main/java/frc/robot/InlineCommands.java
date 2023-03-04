@@ -155,7 +155,22 @@ final public class InlineCommands {
     return switchPipelineThenAim(Pipeline.topPeg).withName("Aim Top Peg");
   }
 
-  public static CommandBase liftToPosition(double percentageOfHighestRotation) {
+  public static CommandBase liftToTop() {
+    final double TOP_PERCENTAGE = 0.8;
+    return liftToPosition(TOP_PERCENTAGE);
+  }
+
+  public static CommandBase liftToMiddle() {
+    final double MIDDLE_PERCENTAGE = 0.5;
+    return liftToPosition(MIDDLE_PERCENTAGE);
+  }
+
+  public static CommandBase liftToBottom() {
+    final double BOTTOM_PERCENTAGE = 0.3;
+    return liftToPosition(BOTTOM_PERCENTAGE);
+  }
+
+  private static CommandBase liftToPosition(double percentageOfHighestRotation) {
     final double PROP_TERM = 0.01;
     final double MIN_TERM = 0.05;
     final double TOLERANCE = 0.04;
