@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import static frc.robot.InlineCommands.*;
 
 public class RobotContainer {
 
