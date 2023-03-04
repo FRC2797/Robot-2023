@@ -8,7 +8,9 @@ public class TelescopeArm extends SubsystemBase {
   private final int MOTOR_ID = 9;
   CANSparkMax motor = new CANSparkMax(MOTOR_ID, MotorType.kBrushless);
 
-  public TelescopeArm() {}
+  public TelescopeArm() {
+    motor.setInverted(true);
+  }
 
   public void setSpeed(double speed) {
     motor.set(speed);
