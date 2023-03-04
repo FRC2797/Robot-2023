@@ -25,7 +25,7 @@ public class Lift extends SubsystemBase {
     encoder = motor.getEncoder();
     final double ENCODER_COUNTS_FOR_HIGHEST_ROTATION = 17.4;
     encoder.setPositionConversionFactor(1 / ENCODER_COUNTS_FOR_HIGHEST_ROTATION);
-    encoder.setPosition(0);
+    resetEncoder();
 
     configureShuffleboard();
   }
@@ -40,6 +40,10 @@ public class Lift extends SubsystemBase {
 
   public double getPercentageOfHighestRotation() {
     return encoder.getPosition();
+  }
+
+  public void resetEncoder() {
+    encoder.setPosition(0);
   }
 
   private void configureShuffleboard() {
