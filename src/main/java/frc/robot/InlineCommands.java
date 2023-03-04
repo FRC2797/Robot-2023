@@ -225,6 +225,6 @@ final public class InlineCommands {
 
   final private static double GRABBER_SPEED = 0.3;
   final public static CommandBase grabberOpen() {
-    return run(() -> grabber.open(GRABBER_SPEED), grabber);
+    return grabber.open(GRABBER_SPEED);
   }
 }
