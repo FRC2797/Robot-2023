@@ -38,6 +38,10 @@ public class Lift extends SubsystemBase {
     motor.setVoltage(voltage);
   }
 
+  public double getPercentageOfHighestRotation() {
+    return encoder.getPosition();
+  }
+
   private void configureShuffleboard() {
     ShuffleboardTab lift = Shuffleboard.getTab("Lift");
     lift.addDouble("Motor speed", motor::get);
