@@ -41,9 +41,9 @@ public class Lift extends SubsystemBase {
   /**
  * @return angle in radians from the horizontal
  */
-public double getAngleInRadians() {
-    return encoder.getPosition() * 2 * Math.PI;
-}
+  public double getAngleInRadians() {
+      return encoder.getPosition() * 2 * Math.PI;
+  }
 
   private void configureShuffleboard() {
     ShuffleboardTab lift = Shuffleboard.getTab("Lift");
