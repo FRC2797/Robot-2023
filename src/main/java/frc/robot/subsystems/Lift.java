@@ -38,17 +38,9 @@ public class Lift extends SubsystemBase {
     motor.setVoltage(voltage);
   }
 
-  /**
- * @return angle in radians from the horizontal
- */
-  public double getAngleInRadians() {
-      return encoder.getPosition() * 2 * Math.PI;
-  }
-
   private void configureShuffleboard() {
     ShuffleboardTab lift = Shuffleboard.getTab("Lift");
     lift.addDouble("Motor speed", motor::get);
     lift.addDouble("Encoder Position", encoder::getPosition);
-    lift.addDouble("Get Angle in Radians", this::getAngleInRadians);
   }
 }
