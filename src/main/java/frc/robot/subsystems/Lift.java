@@ -34,10 +34,6 @@ public class Lift extends SubsystemBase {
     motor.set(speed);
   }
 
-  public void setVoltage(double voltage) {
-    motor.setVoltage(voltage);
-  }
-
   public double getPercentageOfHighestRotation() {
     return encoder.getPosition();
   }
