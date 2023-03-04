@@ -208,7 +208,7 @@ final public class InlineCommands {
     .finallyDo(end -> lift.setSpeed(0));
   }
 
-  final private static double TELESCOPE_SPEED = 0.2;
+  final private static double TELESCOPE_SPEED = 0.3;
   public static CommandBase telescopeForward() {
     return run(() -> telescopeArm.setSpeed(TELESCOPE_SPEED), lift)
     .finallyDo(end -> telescopeArm.setSpeed(0));
