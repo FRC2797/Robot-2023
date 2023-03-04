@@ -21,7 +21,8 @@ public class RobotContainer {
     commandScheduler.getActiveButtonLoop().clear();
     drivetrain.setDefaultCommand(teleopDrive());
 
-    c.b().onTrue(runOnce(() -> commandScheduler.cancelAll()));
+    CommandBase cancelAllCommands = runOnce(() -> commandScheduler.cancelAll());
+    c.b().onTrue(cancelAllCommands);
 
     if (isSemiAutonomous)
       bindSemiAutonomous();
