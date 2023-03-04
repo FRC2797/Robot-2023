@@ -200,4 +200,31 @@ final public class InlineCommands {
     Command switchPipeline = limelight.switchPipelineCommand(pipeline);
     return switchPipeline.andThen(aimWithLimelight());
   }
+
+  final private static double LIFT_SPEED = 0.35;
+  public static CommandBase liftUp() {
+    return run(() -> lift.setSpeed(LIFT_SPEED), lift)
+    .finallyDo(end -> lift.setSpeed(0));
+  }
+
+  public static CommandBase liftDown() {
+    return run(() -> lift.setSpeed(-LIFT_SPEED), lift)
+    .finallyDo(end -> lift.setSpeed(0));
+  }
+
+  final private static double TELESCOPE_SPEED = 0.2;
+  public static CommandBase telescopeForward() {
+    return run(() -> telescopeArm.setSpeed(TELESCOPE_SPEED), lift)
+    .finallyDo(end -> telescopeArm.setSpeed(0));
+  }
+
+  public static CommandBase telescopeBackward() {
+    return run(() -> telescopeArm.setSpeed(-TELESCOPE_SPEED), lift)
+    .finallyDo(end -> telescopeArm.setSpeed(0));
+  }
+
+  final private static double GRABBER_SPEED = 0.3;
+  final public static CommandBase grabberOpen() {
+    return run(() -> grabber.open(GRABBER_SPEED), grabber);
+  }
 }
