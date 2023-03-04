@@ -65,11 +65,9 @@ public class RobotContainer {
   }
 
   private void bindSemiAutoLiftCommands(Trigger bumper, Supplier<Command> aim) {
-    CommandBase dropGamePiece = openGrabberThenStop();
-
-    bumper.and(c.povUp()).onTrue(sequence(aim.get(), liftToTop(), dropGamePiece));
-    bumper.and(c.povLeft().or(c.povRight())).onTrue(sequence(aim.get(), liftToMiddle(), dropGamePiece));
-    bumper.and(c.povDown()).onTrue(sequence(aim.get(), liftToBottom(), dropGamePiece));
+    bumper.and(c.povUp()).onTrue(sequence(aim.get(), liftToTop(), fullyOpenGrabber()));
+    bumper.and(c.povLeft().or(c.povRight())).onTrue(sequence(aim.get(), liftToMiddle(), fullyOpenGrabber()));
+    bumper.and(c.povDown()).onTrue(sequence(aim.get(), liftToBottom(), fullyOpenGrabber()));
   }
 
   public Command getAutonomousCommand() {
