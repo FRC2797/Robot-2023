@@ -182,6 +182,7 @@ final public class InlineCommands {
 
         lift.setSpeed(speed);;
       }, lift)
+      .finallyDo(end -> lift.setSpeed(0))
       .until(() -> {
         double currentHeight = lift.getPercentageOfHighestRotation();
         double error = setpoint - currentHeight;
