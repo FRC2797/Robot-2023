@@ -53,7 +53,7 @@ public class Grabber extends SubsystemBase {
     return !closedLimitSwitch.get();
   }
 
-  private CommandBase open(double speed) {
+  public CommandBase open(double speed) {
     CommandBase openCommand = startEnd(() -> motor.set(speed), () -> motor.set(0));
     openCommand.addRequirements(this);
     return openCommand;
