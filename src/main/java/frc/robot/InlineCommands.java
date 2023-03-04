@@ -147,7 +147,7 @@ final public class InlineCommands {
     return switchPipelineThenAim(Pipeline.aprilTag).withName("Aim April Tag");
   }
 
-  public static CommandBase aimBottomPeg() {
+  public static CommandBase aimLowerPeg() {
     return switchPipelineThenAim(Pipeline.bottomPeg).withName("Aim Bottom Peg");
   }
 
