@@ -20,8 +20,8 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
     final int FRONT_RIGHT = 5;
-    final int BACK_RIGHT = 2;
-    final int FRONT_LEFT = 3;
+    final int BACK_RIGHT = 3;
+    final int FRONT_LEFT = 6;
     final int BACK_LEFT = 4;
 
     sparkMaxFrontRight = new CANSparkMax(FRONT_RIGHT, MotorType.kBrushless);
