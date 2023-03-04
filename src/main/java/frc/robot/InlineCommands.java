@@ -223,8 +223,8 @@ final public class InlineCommands {
     .finallyDo(end -> telescopeArm.setSpeed(0));
   }
 
-  final private static double GRABBER_SPEED = 0.3;
   final public static CommandBase grabberOpen() {
+    final double GRABBER_SPEED = 0.3;
     return grabber.open(GRABBER_SPEED);
   }
 }
