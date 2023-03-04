@@ -23,8 +23,8 @@ public class Lift extends SubsystemBase {
     motor.setIdleMode(IS_BRAKED ? IdleMode.kBrake : IdleMode.kCoast);
 
     encoder = motor.getEncoder();
-    final double ENCODER_COUNT_IN_A_SINGLE_ROTATION = 17.4;
-    encoder.setPositionConversionFactor(1 / ENCODER_COUNT_IN_A_SINGLE_ROTATION);
+    final double ENCODER_COUNTS_FOR_HIGHEST_ROTATION = 17.4;
+    encoder.setPositionConversionFactor(1 / ENCODER_COUNTS_FOR_HIGHEST_ROTATION);
     encoder.setPosition(0);
 
     configureShuffleboard();
