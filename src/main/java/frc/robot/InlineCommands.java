@@ -227,4 +227,9 @@ final public class InlineCommands {
     final double GRABBER_SPEED = 0.3;
     return grabber.open(GRABBER_SPEED);
   }
+
+  final public static CommandBase openGrabberThenStop() {
+    final double OPEN_DURATION = 0.5;
+    return grabberOpen().raceWith(waitSeconds(OPEN_DURATION));
+  }
 }
