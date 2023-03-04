@@ -25,7 +25,7 @@ final public class InlineCommands {
   public final static TelescopeArm telescopeArm = new TelescopeArm();
   public final static Solenoid brakes = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
 
-  private final static CommandXboxController controller = new CommandXboxController(0);
+  public final static CommandXboxController controller = new CommandXboxController(0);
 
   private InlineCommands() {
 
