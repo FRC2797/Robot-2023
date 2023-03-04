@@ -18,6 +18,7 @@ import frc.robot.subsystems.Limelight.Pipeline;
 
 import static edu.wpi.first.math.MathUtil.applyDeadband;
 import static java.lang.Math.abs;
+import static java.lang.Math.signum;
 
 import static edu.wpi.first.wpilibj2.command.Commands.*;
 
@@ -158,33 +159,28 @@ final public class InlineCommands {
     return switchPipelineThenAim(Pipeline.topPeg).withName("Aim Top Peg");
   }
 
-  public static CommandBase liftToPosition(double positionRadians) {
-    final double kS = 0.039003;
-    final double kV = 0.42996;
-    final double kA = 0.028221;
-    final double kG = 0.10426;
+  public static CommandBase liftToPosition(double percentageOfHighestRotation) {
+    final double PROP_TERM = 0.01;
+    final double MIN_TERM = 0.05;
+    final double TOLERANCE = 0.04;
+    final double setpoint = percentageOfHighestRotation;
+    return
+    runOnce(lift::resetEncoder)
+    .andThen(
+      run(() -> {
+        double currentHeight = lift.getPercentageOfHighestRotation();
+        double error = setpoint - currentHeight;
+        double speed = (error * PROP_TERM) + (MIN_TERM * signum(error));
 
-    ArmFeedforward feedforward = new ArmFeedforward(kS, kG, kV, kA);
+        lift.setSpeed(speed);;
+      }, lift)
+      .until(() -> {
+        double currentHeight = lift.getPercentageOfHighestRotation();
+        double error = setpoint - currentHeight;
 
-
-    final double kP = 0;
-    final double kI = 0;
-    final double kD = 0;
-
-    PIDController pid = new PIDController(kP, kI, kD);
-    Shuffleboard.getTab("Lift").add(pid);
-
-    return run(() -> {
-      double voltage = feedforward.calculate(positionRadians, 0)
-        + pid.calculate(lift.getAngleInRadians(), positionRadians);
-
-      lift.setVoltage(voltage);
-    }, lift)
-    .beforeStarting(() -> pid.reset())
-    .finallyDo(end -> {
-      lift.setVoltage(0);
-      lift.setSpeed(0);
-    });
+        return abs(error) < abs(TOLERANCE);
+      })
+    );
   }
 
   private static CommandBase switchPipelineThenAim(Pipeline pipeline) {
