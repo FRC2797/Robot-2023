@@ -51,7 +51,7 @@ final public class InlineCommands {
       .ignoringDisable(true);
   }
 
-  public static Command teleopDrive() {
+  public static Command teleopDriveArcadeDrive() {
     return run(
       () -> {
         double leftY = controller.getLeftY();
