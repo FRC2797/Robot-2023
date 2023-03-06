@@ -66,7 +66,7 @@ final public class InlineCommands {
     return run(
       () -> {
         double leftY = controller.getLeftY();
-        double rightX = controller.getRightX();
+        double rightY = controller.getRightY();
 
         drivetrain.tankDrive(transformStickInput(leftY), transformStickInput(rightX));
       },
