@@ -47,6 +47,11 @@ public class Drivetrain extends SubsystemBase {
     drive.arcadeDrive(xSpeed, rotation, INPUTS_SQUARED);
   }
 
+  public void tankDrive(double leftSpeed, double rightSpeed) {
+    final boolean INPUTS_SQUARED = false;
+    drive.tankDrive(leftSpeed, rightSpeed, INPUTS_SQUARED);
+  }
+
   private void setMotorsToBrake() {
     frontRight.setIdleMode(IdleMode.kBrake);
     frontLeft.setIdleMode(IdleMode.kBrake);

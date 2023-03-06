@@ -62,6 +62,17 @@ final public class InlineCommands {
       drivetrain);
   }
 
+  public static Command teleopDriveTankDrive() {
+    return run(
+      () -> {
+        double leftY = controller.getLeftY();
+        double rightX = controller.getRightX();
+
+        drivetrain.tankDrive(transformStickInput(leftY), transformStickInput(rightX));
+      },
+      drivetrain);
+  }
+
   private static double transformStickInput(double stickInput) {
     final double DEADBAND = 0.05;
     stickInput = applyDeadband(stickInput, DEADBAND);
