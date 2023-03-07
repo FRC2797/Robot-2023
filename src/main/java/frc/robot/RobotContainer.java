@@ -28,7 +28,8 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(teleopDriveTankDrive());
 
     CommandBase cancelAllCommands = runOnce(() -> commandScheduler.cancelAll());
-    c.b().onTrue(cancelAllCommands);
+    // bind cancel all commands
+    // usbButton.onTrue(cancelAllCommands);
 
     if (isSemiAutonomous)
       bindSemiAutonomous();
