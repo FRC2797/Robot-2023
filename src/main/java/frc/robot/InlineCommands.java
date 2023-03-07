@@ -34,18 +34,6 @@ final public class InlineCommands {
 
   }
 
-  public static CommandBase setTelescopicArmPosition(double percentageSetpoint) {
-    return telescopeArm.setPositionCommand(percentageSetpoint);
-  }
-
-  public static CommandBase fullyOpenGrabber() {
-    return grabber.fullyOpenGrabber();
-  }
-
-  public static CommandBase fullyCloseGrabber() {
-    return grabber.fullyCloseGrabber();
-  }
-
   public static CommandBase brakesOn() {
     return startEnd(() -> brakes.set(true), () -> brakes.set(false), drivetrain)
       .ignoringDisable(true);
