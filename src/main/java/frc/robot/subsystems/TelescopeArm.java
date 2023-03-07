@@ -12,7 +12,7 @@ import static java.lang.Math.signum;
 import static java.lang.Math.abs;
 
 public class TelescopeArm extends SubsystemBase {
-  private final int MOTOR_ID = 3;
+  private final int MOTOR_ID = 2;
   private final CANSparkMax motor = new CANSparkMax(MOTOR_ID, MotorType.kBrushless);
   private final RelativeEncoder encoder = motor.getEncoder();
 
