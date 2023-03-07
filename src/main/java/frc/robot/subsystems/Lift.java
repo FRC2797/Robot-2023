@@ -38,6 +38,14 @@ public class Lift extends SubsystemBase {
     return encoder.getPosition();
   }
 
+  public boolean isFullyUp() {
+    return getPercentageOfHighestRotation() > 0.9;
+  }
+
+  public boolean isFullyDown() {
+    return getPercentageOfHighestRotation() < 0.1;
+  }
+
   public void resetEncoder() {
     encoder.setPosition(0);
   }

@@ -35,6 +35,14 @@ public class TelescopeArm extends SubsystemBase {
     return encoder.getPosition();
   }
 
+  public boolean isFullyExtended() {
+    return getPercentageExtended() > 0.9;
+  }
+
+  public boolean isFullyIn() {
+    return getPercentageExtended() < 0.1;
+  }
+
   public CommandBase setPositionCommand(double percentageSetpoint) {
     final double PROPORTIONAL_TERM = 0.5;
     final double MIN_TERM = 0.05;
