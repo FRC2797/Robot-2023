@@ -87,10 +87,10 @@ public class Drivetrain extends SubsystemBase {
   }
 
   private void configureMotorControllersAndDrivetrain() {
-    final int FRONT_RIGHT = 2;
-    final int BACK_RIGHT = 1;
-    final int FRONT_LEFT = 3;
-    final int BACK_LEFT = 18;
+    final int FRONT_RIGHT = 5;
+    final int BACK_RIGHT = 3;
+    final int FRONT_LEFT = 6;
+    final int BACK_LEFT = 4;
 
     frontRight = new CANSparkMax(FRONT_RIGHT, MotorType.kBrushless);
     frontLeft = new CANSparkMax(FRONT_LEFT, MotorType.kBrushless);
