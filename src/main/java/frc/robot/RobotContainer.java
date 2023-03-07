@@ -50,18 +50,7 @@ public class RobotContainer {
   }
 
   private void bindSemiAutonomous() {
-    // We won't need different lift heights for
-    // pegs and shelves. We'll just lift to the
-    // height of the pegs and the cube can just
-    // drop down
-
-    // It'll also be good enough to just always aim at the lower peg
-    // If there it isn't available it'll automatically
-    // aim at the top peg
-
     bindSemiAutoLiftCommands(c.leftBumper(), InlineCommands::aimAprilTag);
-    // TODO: When going for the middle it should aim for lower peg and
-    // going for the top it should aim for the top peg
     bindSemiAutoLiftCommands(c.rightBumper(), InlineCommands::aimLowerPeg);
 
     c.rightTrigger().whileTrue(grabberOpen());
