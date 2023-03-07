@@ -29,13 +29,13 @@ public class Grabber extends SubsystemBase {
 
   private final double OPENING_SPEED = 0.15;
 
-  public CommandBase fullyOpenGrabber() {
+  public CommandBase fullyOpen() {
     return open(OPENING_SPEED).until(this::isFullyOpen);
   }
 
   private final double CLOSING_SPEED = 0.2;
 
-  public CommandBase fullyCloseGrabber() {
+  public CommandBase fullyClose() {
     return close(CLOSING_SPEED).until(this::isFullyClosed);
   }
 
