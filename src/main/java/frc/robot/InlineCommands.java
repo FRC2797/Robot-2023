@@ -170,6 +170,26 @@ final public class InlineCommands {
     return liftToPosition(BOTTOM_PERCENTAGE);
   }
 
+  public static CommandBase extensionForTop() {
+    final double EXTENSION_PERCENTAGE = 0.3;
+    return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
+
+  }
+
+  public static CommandBase extensionForMiddle() {
+    final double EXTENSION_PERCENTAGE = 0.2;
+    return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
+  }
+
+  public static CommandBase extensionForBottom() {
+    final double EXTENSION_PERCENTAGE = 0.1;
+    return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
+  }
+
+  public static CommandBase extensionBackIn() {
+    return telescopeArm.setPositionCommand(0);
+  }
+
   private static CommandBase liftToPosition(double percentageOfHighestRotation) {
     final double PROP_TERM = 0.01;
     final double MIN_TERM = 0.05;
