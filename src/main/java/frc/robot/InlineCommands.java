@@ -271,7 +271,7 @@ final public class InlineCommands {
         telescopeArm.setSpeed(TELESCOPE_SPEED);
       else
         telescopeArm.setSpeed(0);
-    }, lift)
+    }, telescopeArm)
     .finallyDo(end -> telescopeArm.setSpeed(0));
   }
 
@@ -281,7 +281,7 @@ final public class InlineCommands {
         telescopeArm.setSpeed(-TELESCOPE_SPEED);
       else
         telescopeArm.setSpeed(0);
-    }, lift)
+    }, telescopeArm)
     .finallyDo(end -> telescopeArm.setSpeed(0));
   }
 
