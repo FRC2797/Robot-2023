@@ -227,12 +227,22 @@ final public class InlineCommands {
 
   final private static double LIFT_SPEED = 0.35;
   public static CommandBase liftUp() {
-    return run(() -> lift.setSpeed(LIFT_SPEED), lift)
+    return run(() -> {
+      if (!lift.isFullyUp())
+        lift.setSpeed(LIFT_SPEED);
+      else
+        lift.setSpeed(0);
+    }, lift)
     .finallyDo(end -> lift.setSpeed(0));
   }
 
   public static CommandBase liftDown() {
-    return run(() -> lift.setSpeed(-LIFT_SPEED), lift)
+    return run(() -> {
+      if (!lift.isFullyDown())
+        lift.setSpeed(-LIFT_SPEED);
+      else
+        lift.setSpeed(0);
+    }, lift)
     .finallyDo(end -> lift.setSpeed(0));
   }
 
