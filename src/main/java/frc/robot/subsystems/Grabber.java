@@ -22,7 +22,6 @@ public class Grabber extends SubsystemBase {
     motor.setInverted(MOTOR_INVERSION);
     motor.setIdleMode(IdleMode.kBrake);
 
-    grabberTab.addBoolean("Is Closed", this::isFullyClosed);
     grabberTab.addBoolean("Is Open", this::isFullyOpen);
     grabberTab.add(this);
   }
@@ -33,12 +32,6 @@ public class Grabber extends SubsystemBase {
     return open(OPENING_SPEED).until(this::isFullyOpen);
   }
 
-  private final double CLOSING_SPEED = 0.2;
-
-  public CommandBase fullyClose() {
-    return close(CLOSING_SPEED).until(this::isFullyClosed);
-  }
-
   private final int OPEN_LIMIT_SWITCH_ID = 0;
   private final DigitalInput openLimitSwitch = new DigitalInput(OPEN_LIMIT_SWITCH_ID);
 
@@ -46,20 +39,9 @@ public class Grabber extends SubsystemBase {
     return !openLimitSwitch.get();
   }
 
-  private final int CLOSED_LIMIT_SWITCH_ID = 1;
-  private final DigitalInput closedLimitSwitch = new DigitalInput(CLOSED_LIMIT_SWITCH_ID);
-
-  private boolean isFullyClosed() {
-    return !closedLimitSwitch.get();
-  }
-
   public CommandBase open(double speed) {
     CommandBase openCommand = startEnd(() -> motor.set(speed), () -> motor.set(0));
     openCommand.addRequirements(this);
     return openCommand;
-  }
-
-  private CommandBase close(double speed) {
-    return open(-speed);
   }
 }
