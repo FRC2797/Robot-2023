@@ -38,7 +38,7 @@ public class RobotContainer {
   }
 
   private void bindManualButtons() {
-    c.x().whileTrue(grabberOpen());
+    c.x().whileTrue(keepGrabberOpen());
 
     c.y().whileTrue(liftUp());
     c.a().whileTrue(liftDown());
