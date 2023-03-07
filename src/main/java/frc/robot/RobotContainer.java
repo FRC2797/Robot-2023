@@ -50,7 +50,58 @@ public class RobotContainer {
   }
 
   private void bindSemiAutonomous() {
+    Trigger startButton = null;
+    Trigger mapButton = null;
 
+    CommandBase brakesOn = brakesOn();
+    startButton.onTrue(runOnce(() -> brakesOn.schedule()));
+    mapButton.onTrue(runOnce(() -> brakesOn.cancel()));
+
+    c.povUp().whileTrue(liftUp());
+    c.povDown().whileTrue(liftDown());
+
+    c.povRight().whileTrue(telescopeForward());
+    c.povLeft().whileTrue(telescopeBackward());
+
+    Trigger leftAndRightBumperNotPressed = (c.leftBumper().or(c.rightBumper())).negate();
+    c.y().and(leftAndRightBumperNotPressed).toggleOnTrue(
+      sequence(aimTopPeg(), liftToTop(), extensionForTop())
+    );
+
+    c.b().and(leftAndRightBumperNotPressed).toggleOnTrue(
+      sequence(aimLowerPeg(), liftToMiddle(), extensionForMiddle())
+    );
+
+    c.x().and(leftAndRightBumperNotPressed).toggleOnTrue(
+      sequence(aimAprilTag(), liftToTop(), extensionForTop())
+    );
+
+    c.a().and(leftAndRightBumperNotPressed).toggleOnTrue(
+      sequence(aimAprilTag(), liftToMiddle(), extensionForMiddle())
+    );
+
+    c.y().and(c.leftBumper()).toggleOnTrue(aimTopPeg());
+    c.y().and(c.rightBumper()).toggleOnTrue(liftToTop());
+
+    c.x().and(c.leftBumper()).toggleOnTrue(aimAprilTag());
+    c.x().and(c.rightBumper()).toggleOnTrue(liftToTop());
+
+    c.a().and(c.leftBumper()).toggleOnTrue(aimAprilTag());
+    c.a().and(c.rightBumper()).toggleOnTrue(liftToMiddle());
+
+
+    c.rightTrigger().toggleOnTrue(race(extensionToGrab(), keepGrabberOpen()).andThen(extensionBackIn()));
+    Trigger hasGamepiece = new Trigger(() -> grabber.hasGamepiece());
+    c.leftTrigger().and(hasGamepiece)
+      .toggleOnTrue(
+        sequence(
+          keepGrabberOpen().raceWith(waitSeconds(0.2)),
+          extensionBackIn()
+        )
+    );
+
+    CommandBase goIntoSeeking = sequence(liftToBottom(), extensionBackIn());
+    c.leftTrigger().and((hasGamepiece.negate())).toggleOnTrue(goIntoSeeking);
   }
 
   public Command getAutonomousCommand() {
