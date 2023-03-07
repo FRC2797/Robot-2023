@@ -248,12 +248,22 @@ final public class InlineCommands {
 
   final private static double TELESCOPE_SPEED = 0.2;
   public static CommandBase telescopeForward() {
-    return run(() -> telescopeArm.setSpeed(TELESCOPE_SPEED), lift)
+    return run(() -> {
+      if (!telescopeArm.isFullyExtended())
+        telescopeArm.setSpeed(TELESCOPE_SPEED);
+      else
+        telescopeArm.setSpeed(0);
+    }, lift)
     .finallyDo(end -> telescopeArm.setSpeed(0));
   }
 
   public static CommandBase telescopeBackward() {
-    return run(() -> telescopeArm.setSpeed(-TELESCOPE_SPEED), lift)
+    return run(() -> {
+      if (!telescopeArm.isFullyIn())
+        telescopeArm.setSpeed(-TELESCOPE_SPEED);
+      else
+        telescopeArm.setSpeed(0);
+    }, lift)
     .finallyDo(end -> telescopeArm.setSpeed(0));
   }
 
