@@ -118,6 +118,24 @@ final public class InlineCommands {
             .until(() -> abs(drivetrain.getDistanceDrivenInInches()) > abs(inches)));
   }
 
+  public static Command driveRotation(double degrees) {
+    final double PROP_TERM = 0.004;
+    final double MIN_TERM = 0.05;
+    final double TOLERANCE = 3;
+    final double initialYaw = navx.getYaw();
+    final double distanceToRotate = degrees;
+    return run(
+          () -> {
+            double distanceRotated = navx.getYaw() - initialYaw;
+            double error = distanceToRotate - distanceRotated;
+            double speed = (error * PROP_TERM) + MIN_TERM * signum(error);
+
+            drivetrain.arcadeDrive(0, speed);
+          },
+          drivetrain)
+            .until(() -> abs(navx.getYaw() - initialYaw) < TOLERANCE);
+  }
+
   public static Command waitUntilLevel() {
     final double LEVELED_VALUE = 1;
 
