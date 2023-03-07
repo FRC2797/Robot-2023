@@ -112,38 +112,9 @@ public class RobotContainer {
 
   //TODO: Code the switching of autos with a selector on shuffleboard
   public Command getAutonomousCommand() {
-    final double CHARGING_STATION_SPEED = -0.15;
-    // Two sets
-    // Place a game piece, drive until level on chargingStation
-    // place a game piece, turn around, drive distance, pick up game piece, turn around, drive distance, place gamepiece
-    Supplier<CommandBase> placeGamepiece = () -> sequence(
-      liftToTop(),
-      extensionForTop(),
-      keepGrabberOpen().raceWith(waitSeconds(0.2)),
-      extensionBackIn(),
-      liftToBottom()
-    );
+    return Autos.chargingStation();
+  }
 
-    CommandBase chargingStationAuto = sequence(
-      placeGamepiece.get(),
-      driveUntilLevelOnChargingStation(CHARGING_STATION_SPEED)
-    );
 
-    final double DISTANCE_TO_GAMEPIECE = 210;
-    CommandBase twoGamepieceAuto = sequence(
-      placeGamepiece.get(),
-      driveRotation(180),
-      driveDistance(DISTANCE_TO_GAMEPIECE),
-      liftToBottom(),
-      race(
-        extensionToGrab(),
-        keepGrabberOpen()
-      ).finallyDo(end -> extensionBackIn()),
-      driveRotation(180),
-      driveDistance(DISTANCE_TO_GAMEPIECE),
-      placeGamepiece.get()
-    );
-
-    return chargingStationAuto;
   }
 }
