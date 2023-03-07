@@ -90,7 +90,13 @@ public class RobotContainer {
     c.a().and(c.rightBumper()).toggleOnTrue(liftToMiddle());
 
 
-    c.rightTrigger().toggleOnTrue(race(extensionToGrab(), keepGrabberOpen()).andThen(extensionBackIn()));
+    CommandBase grabGamepiece = race(
+      extensionToGrab(), keepGrabberOpen()).finallyDo(end -> extensionBackIn()
+    );
+
+    c.rightTrigger().onTrue(runOnce(() -> grabGamepiece.schedule()));
+    c.rightTrigger().onFalse(runOnce(() -> grabGamepiece.cancel()));
+
     Trigger hasGamepiece = new Trigger(() -> grabber.hasGamepiece());
     c.leftTrigger().and(hasGamepiece)
       .toggleOnTrue(
