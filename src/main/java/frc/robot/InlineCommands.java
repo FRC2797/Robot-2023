@@ -80,14 +80,14 @@ final public class InlineCommands {
   }
 
 
-  public static Command driveUntilLevelOnChargingStation() {
-    final double SLOW_SPEED_FORWARD = 0.15;
+  public static Command driveUntilLevelOnChargingStation(double slowSpeed) {
+    final double SLOW_SPEED = slowSpeed;
     final double SLOW_SPEED_BACKWARD = -0.05;
     final double WAIT_BEFORE_OVERSHOOT_CORRECTION = 0.5;
     final double PITCHED_VALUE = 15;
 
     Command driveForwardSlowly =
-        run(() -> drivetrain.arcadeDrive(SLOW_SPEED_FORWARD, 0), drivetrain);
+        run(() -> drivetrain.arcadeDrive(SLOW_SPEED, 0), drivetrain);
     Command waitUntilPitched = waitUntil(() -> Math.abs(navx.getPitch()) > PITCHED_VALUE);
 
     Command driveBackwardSlowly =
