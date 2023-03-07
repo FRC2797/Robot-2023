@@ -51,7 +51,6 @@ public class RobotContainer {
 
   private void bindSemiAutonomous() {
 
-    c.rightTrigger().whileTrue(grabberOpen());
   }
 
   public Command getAutonomousCommand() {
