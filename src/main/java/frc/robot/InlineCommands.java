@@ -186,6 +186,11 @@ final public class InlineCommands {
     return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
   }
 
+  public static CommandBase extensionToGrab() {
+    final double EXTENSION_PERCENTAGE = 0.1;
+    return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
+  }
+
   public static CommandBase extensionBackIn() {
     return telescopeArm.setPositionCommand(0);
   }
