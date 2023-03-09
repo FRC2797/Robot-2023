@@ -9,10 +9,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import static edu.wpi.first.wpilibj2.command.Commands.*;
 import static frc.robot.InlineCommands.*;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
 public class RobotContainer {
   private final boolean IS_SEMI_AUTONOMOUS = false;
   CommandScheduler commandScheduler = CommandScheduler.getInstance();
