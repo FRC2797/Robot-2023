@@ -20,7 +20,7 @@ public class RobotContainer {
 
   CommandXboxController c = controller;
   private void configureBindings(boolean isSemiAutonomous) {
-    commandScheduler.getActiveButtonLoop().clear();
+    clearAllButtonBindings();
     drivetrain.setDefaultCommand(teleopDriveTankDrive());
 
     CommandBase cancelAllCommands = runOnce(() -> commandScheduler.cancelAll());
@@ -109,6 +109,10 @@ public class RobotContainer {
   //TODO: Code the switching of autos with a selector on shuffleboard
   public Command getAutonomousCommand() {
     return Autos.chargingStation();
+  }
+
+  public void clearAllButtonBindings() {
+    commandScheduler.getActiveButtonLoop().clear();
   }
 
 
