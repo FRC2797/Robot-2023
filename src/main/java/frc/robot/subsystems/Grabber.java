@@ -18,7 +18,7 @@ public class Grabber extends SubsystemBase {
 
   public Grabber() {
     final boolean MOTOR_INVERSION = true;
-    final int MOTOR_ID = 8;
+    final int MOTOR_ID = 7;
 
     motor = new CANSparkMax(MOTOR_ID, MotorType.kBrushless);
     motor.setInverted(MOTOR_INVERSION);
