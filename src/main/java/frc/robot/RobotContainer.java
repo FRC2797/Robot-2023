@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import static edu.wpi.first.wpilibj2.command.Commands.*;
 import static frc.robot.InlineCommands.*;
+import static frc.robot.Test.*;
 
 public class RobotContainer {
   private final boolean IS_SEMI_AUTONOMOUS = false;
@@ -16,6 +17,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings(IS_SEMI_AUTONOMOUS);
+    addTestsToShuffleboard();
   }
 
   CommandXboxController c = controller;
