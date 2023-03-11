@@ -115,7 +115,8 @@ final public class InlineCommands {
             drivetrain.arcadeDrive(speed, 0);
           },
           drivetrain)
-            .until(() -> abs(drivetrain.getDistanceDrivenInInches()) > abs(inches)));
+            .until(() -> abs(drivetrain.getDistanceDrivenInInches()) > abs(inches)))
+            .withName("Drive " + inches + " inches");
   }
 
   public static CommandBase driveRotation(double degrees) {
@@ -133,7 +134,8 @@ final public class InlineCommands {
             drivetrain.arcadeDrive(0, speed);
           },
           drivetrain)
-            .until(() -> abs(navx.getYaw() - initialYaw) < TOLERANCE);
+            .until(() -> abs(navx.getYaw() - initialYaw) < TOLERANCE)
+            .withName("rotate " + degrees);
   }
 
   public static CommandBase waitUntilLevel() {
@@ -235,7 +237,7 @@ final public class InlineCommands {
 
         return abs(error) < abs(TOLERANCE);
       })
-    );
+    ).withName("Lift to " + percentageOfHighestRotation);
   }
 
   private static CommandBase switchPipelineThenAim(Pipeline pipeline) {

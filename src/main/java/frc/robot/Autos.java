@@ -27,7 +27,8 @@ public class Autos {
     return sequence(
       placeGamepiece.get(),
       driveUntilLevelOnChargingStation(CHARGING_STATION_SPEED)
-    );
+    )
+    .withName("Charging Station Auto");
   }
 
   public static CommandBase twoGamepieceAuto() {
@@ -44,6 +45,7 @@ public class Autos {
       driveRotation(180),
       driveDistance(DISTANCE_TO_GAMEPIECE),
       placeGamepiece.get()
-    );
+    )
+    .withName("Two Gamepiece Auto");
   }
 }

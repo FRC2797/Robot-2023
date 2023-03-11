@@ -57,6 +57,7 @@ public class TelescopeArm extends SubsystemBase {
       setSpeed(speed);
     })
     .until(() -> abs(getPercentageExtended()) < TOLERANCE)
-    .finallyDo(end -> setSpeed(0));
+    .finallyDo(end -> setSpeed(0))
+    .withName("Set telescopic arm to " + percentageSetpoint);
   }
 }
