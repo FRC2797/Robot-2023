@@ -121,7 +121,7 @@ final public class InlineCommands {
   public static CommandBase driveRotation(double degrees) {
     final double PROP_TERM = 0.004;
     final double MIN_TERM = 0.05;
-    final double TOLERANCE = 3;
+    final double TOLERANCE = 1;
     final double initialYaw = navx.getYaw();
     final double distanceToRotate = degrees;
     return run(
