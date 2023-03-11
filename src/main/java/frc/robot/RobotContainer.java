@@ -21,7 +21,7 @@ public class RobotContainer {
   CommandXboxController c = controller;
   private void configureBindings(boolean isSemiAutonomous) {
     clearAllButtonBindings();
-    drivetrain.setDefaultCommand(teleopDriveTankDrive());
+    drivetrain.setDefaultCommand(teleopDriveArcadeDrive());
 
     CommandBase cancelAllCommands = runOnce(() -> commandScheduler.cancelAll());
     // bind cancel all commands
