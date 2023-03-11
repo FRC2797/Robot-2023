@@ -39,7 +39,7 @@ final public class InlineCommands {
       .ignoringDisable(true);
   }
 
-  public static Command teleopDriveArcadeDrive() {
+  public static CommandBase teleopDriveArcadeDrive() {
     return run(
       () -> {
         double leftY = controller.getLeftY();
@@ -50,7 +50,7 @@ final public class InlineCommands {
       drivetrain);
   }
 
-  public static Command teleopDriveTankDrive() {
+  public static CommandBase teleopDriveTankDrive() {
     return run(
       () -> {
         double leftY = controller.getLeftY();
@@ -80,7 +80,7 @@ final public class InlineCommands {
   }
 
 
-  public static Command driveUntilLevelOnChargingStation(double slowSpeed) {
+  public static CommandBase driveUntilLevelOnChargingStation(double slowSpeed) {
     final double SLOW_SPEED = slowSpeed;
     final double SLOW_SPEED_BACKWARD = -0.05;
     final double WAIT_BEFORE_OVERSHOOT_CORRECTION = 0.5;
@@ -100,7 +100,7 @@ final public class InlineCommands {
           waitSeconds(WAIT_BEFORE_OVERSHOOT_CORRECTION).andThen(waitUntilLevel()))));
   }
 
-  public static Command driveDistance(double inches) {
+  public static CommandBase driveDistance(double inches) {
     final double PROP_TERM = 0.004;
     final double MIN_TERM = inches > 0 ? 0.05 : -0.05;
     final double distanceToDrive = inches;
@@ -118,7 +118,7 @@ final public class InlineCommands {
             .until(() -> abs(drivetrain.getDistanceDrivenInInches()) > abs(inches)));
   }
 
-  public static Command driveRotation(double degrees) {
+  public static CommandBase driveRotation(double degrees) {
     final double PROP_TERM = 0.004;
     final double MIN_TERM = 0.05;
     final double TOLERANCE = 3;
@@ -136,7 +136,7 @@ final public class InlineCommands {
             .until(() -> abs(navx.getYaw() - initialYaw) < TOLERANCE);
   }
 
-  public static Command waitUntilLevel() {
+  public static CommandBase waitUntilLevel() {
     final double LEVELED_VALUE = 1;
 
     return waitUntil(() -> Math.abs(navx.getPitch()) < LEVELED_VALUE);
