@@ -266,10 +266,11 @@ final public class InlineCommands {
   }
 
   final private static double LIFT_SPEED = 0.45;
+  final private static SlewRateLimiter liftAccelLimiter = new SlewRateLimiter(LIFT_SPEED / 2);
   public static CommandBase liftUp() {
     return run(() -> {
       if (!lift.isFullyUp())
-        lift.setSpeed(LIFT_SPEED);
+        lift.setSpeed(liftAccelLimiter.calculate(LIFT_SPEED));
       else
         lift.setSpeed(0);
     }, lift)
@@ -279,7 +280,7 @@ final public class InlineCommands {
   public static CommandBase liftDown() {
     return run(() -> {
       if (!lift.isFullyDown())
-        lift.setSpeed(-LIFT_SPEED);
+        lift.setSpeed(liftAccelLimiter.calculate(-LIFT_SPEED));
       else
         lift.setSpeed(0);
     }, lift)
