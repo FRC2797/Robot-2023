@@ -32,7 +32,7 @@ public class Grabber extends SubsystemBase {
     grabberTab.add(this);
   }
 
-  private final double OPENING_SPEED = 0.15;
+  private final double OPENING_SPEED = 0.41;
 
   public CommandBase fullyOpen() {
     return open(OPENING_SPEED).until(this::isFullyOpen);
