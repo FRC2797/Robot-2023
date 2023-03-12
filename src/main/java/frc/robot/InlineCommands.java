@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -39,13 +40,32 @@ final public class InlineCommands {
       .ignoringDisable(true);
   }
 
+  private static final double DRIVE_POS_ACCEL_LIM_PER_SEC = 1 / 2;
+  private static final double DRIVE_NEG_ACCEL_LIM_PER_SEC = 1 / 2;
+  private static SlewRateLimiter forwardLimiter = new SlewRateLimiter(
+    DRIVE_POS_ACCEL_LIM_PER_SEC,
+    DRIVE_NEG_ACCEL_LIM_PER_SEC,
+    0
+  );
+
+  private static SlewRateLimiter rotationLimiter = new SlewRateLimiter(
+    DRIVE_POS_ACCEL_LIM_PER_SEC,
+    DRIVE_NEG_ACCEL_LIM_PER_SEC,
+    0
+  );
+
   public static CommandBase teleopDriveArcadeDrive() {
     return run(
       () -> {
         double leftY = controller.getLeftY();
         double rightX = controller.getRightX();
+        double transformedLeftY = transformStickInput(leftY);
+        double transformedRightX = transformStickInput(rightX);
 
-          drivetrain.arcadeDrive(transformStickInput(leftY), transformStickInput(rightX));
+          drivetrain.arcadeDrive(
+            forwardLimiter.calculate(transformedLeftY),
+            rotationLimiter.calculate(transformedRightX)
+          );
         },
       drivetrain);
   }
