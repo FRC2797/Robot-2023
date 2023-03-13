@@ -243,8 +243,6 @@ final public class InlineCommands {
     final double TOLERANCE = 0.04;
     final double setpoint = percentageOfHighestRotation;
     return
-    runOnce(lift::resetEncoder)
-    .andThen(
       run(() -> {
         double currentHeight = lift.getPercentageOfHighestRotation();
         double error = setpoint - currentHeight;
@@ -258,8 +256,7 @@ final public class InlineCommands {
         double error = setpoint - currentHeight;
 
         return abs(error) < abs(TOLERANCE);
-      })
-    ).withName("Lift to " + percentageOfHighestRotation);
+      }).withName("Lift to " + percentageOfHighestRotation);
   }
 
   private static CommandBase switchPipelineThenAim(Pipeline pipeline) {
