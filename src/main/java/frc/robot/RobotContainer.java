@@ -41,7 +41,7 @@ public class RobotContainer {
     c.y().whileTrue(liftUp());
     c.a().whileTrue(liftDown());
 
-    c.b().whileTrue(brakesOn());
+    c.b().toggleOnTrue(brakesOn());
 
     c.povUp().whileTrue(telescopeForward());
     c.povDown().whileTrue(telescopeBackward());
