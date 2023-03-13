@@ -42,8 +42,8 @@ final public class InlineCommands {
       .ignoringDisable(true);
   }
 
-  private static final double DRIVE_POS_ACCEL_LIM_PER_SEC = 1 / 2;
-  private static final double DRIVE_NEG_ACCEL_LIM_PER_SEC = -1 / 2;
+  private static final double DRIVE_POS_ACCEL_LIM_PER_SEC = 0.5;
+  private static final double DRIVE_NEG_ACCEL_LIM_PER_SEC = -0.33;
   private static SlewRateLimiter forwardLimiter = new SlewRateLimiter(
     DRIVE_POS_ACCEL_LIM_PER_SEC,
     DRIVE_NEG_ACCEL_LIM_PER_SEC,
@@ -66,7 +66,7 @@ final public class InlineCommands {
 
           drivetrain.arcadeDrive(
             forwardLimiter.calculate(transformedLeftY),
-            rotationLimiter.calculate(transformedRightX)
+            transformedRightX
           );
         },
       drivetrain);
