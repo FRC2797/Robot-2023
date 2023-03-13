@@ -43,7 +43,7 @@ final public class InlineCommands {
   }
 
   private static final double DRIVE_POS_ACCEL_LIM_PER_SEC = 1 / 2;
-  private static final double DRIVE_NEG_ACCEL_LIM_PER_SEC = 1 / 2;
+  private static final double DRIVE_NEG_ACCEL_LIM_PER_SEC = -1 / 2;
   private static SlewRateLimiter forwardLimiter = new SlewRateLimiter(
     DRIVE_POS_ACCEL_LIM_PER_SEC,
     DRIVE_NEG_ACCEL_LIM_PER_SEC,
