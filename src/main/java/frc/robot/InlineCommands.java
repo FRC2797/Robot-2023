@@ -168,7 +168,7 @@ final public class InlineCommands {
 
   public static CommandBase aimWithLimelight() {
     final double TOLERANCE = 1;
-    final double SPEED = 0.04;
+    final double SPEED = 0.2;
     return run(
       () -> {
         double horizontalOffset = limelight.getHorizontalOffset();
