@@ -69,7 +69,7 @@ final public class InlineCommands {
             transformedRightX
           );
         },
-      drivetrain);
+      drivetrain).withName("Teleop Arcade Drive");
   }
 
   public static CommandBase teleopDriveTankDrive() {
