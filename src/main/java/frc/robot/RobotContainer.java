@@ -48,12 +48,12 @@ public class RobotContainer {
   }
 
   private void bindSemiAutonomous() {
-    Trigger startButton = null;
-    Trigger mapButton = null;
+    Trigger startButton = c.start();
+    Trigger backButton = c.back();
 
     CommandBase brakesOn = brakesOn();
     startButton.onTrue(runOnce(() -> brakesOn.schedule()));
-    mapButton.onTrue(runOnce(() -> brakesOn.cancel()));
+    backButton.onTrue(runOnce(() -> brakesOn.cancel()));
 
     c.povUp().whileTrue(liftUp());
     c.povDown().whileTrue(liftDown());
