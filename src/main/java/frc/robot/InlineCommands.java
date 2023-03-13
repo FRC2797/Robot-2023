@@ -3,8 +3,10 @@ package frc.robot;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Grabber;
@@ -265,12 +267,11 @@ final public class InlineCommands {
     return switchPipeline.andThen(aimWithLimelight());
   }
 
-  final private static double LIFT_SPEED = 0.45;
-  final private static SlewRateLimiter liftAccelLimiter = new SlewRateLimiter(LIFT_SPEED / 2);
+  final private static double LIFT_SPEED = 0.15;
   public static CommandBase liftUp() {
     return run(() -> {
       if (!lift.isFullyUp())
-        lift.setSpeed(liftAccelLimiter.calculate(LIFT_SPEED));
+        lift.setSpeed(LIFT_SPEED);
       else
         lift.setSpeed(0);
     }, lift)
@@ -280,7 +281,7 @@ final public class InlineCommands {
   public static CommandBase liftDown() {
     return run(() -> {
       if (!lift.isFullyDown())
-        lift.setSpeed(liftAccelLimiter.calculate(-LIFT_SPEED));
+        lift.setSpeed(-LIFT_SPEED);
       else
         lift.setSpeed(0);
     }, lift)

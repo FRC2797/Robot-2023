@@ -23,7 +23,7 @@ public class Lift extends SubsystemBase {
     motor.setIdleMode(IS_BRAKED ? IdleMode.kBrake : IdleMode.kCoast);
 
     encoder = motor.getEncoder();
-    final double ENCODER_COUNTS_FOR_HIGHEST_ROTATION = 17.4;
+    final double ENCODER_COUNTS_FOR_HIGHEST_ROTATION = 42;
     encoder.setPositionConversionFactor(1 / ENCODER_COUNTS_FOR_HIGHEST_ROTATION);
     resetEncoder();
 
@@ -39,11 +39,11 @@ public class Lift extends SubsystemBase {
   }
 
   public boolean isFullyUp() {
-    return getPercentageOfHighestRotation() > 0.9;
+    return getPercentageOfHighestRotation() > 1;
   }
 
   public boolean isFullyDown() {
-    return getPercentageOfHighestRotation() < 0.1;
+    return getPercentageOfHighestRotation() < 0.05;
   }
 
   public void resetEncoder() {
@@ -54,5 +54,7 @@ public class Lift extends SubsystemBase {
     ShuffleboardTab lift = Shuffleboard.getTab("Lift");
     lift.addDouble("Motor speed", motor::get);
     lift.addDouble("Encoder Position", encoder::getPosition);
+    lift.addBoolean("Is fully up", this::isFullyUp);
+    lift.addBoolean("Is fully down", this::isFullyDown);
   }
 }
