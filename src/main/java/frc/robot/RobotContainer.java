@@ -87,6 +87,8 @@ public class RobotContainer {
     c.a().and(c.leftBumper()).toggleOnTrue(aimAprilTag());
     c.a().and(c.rightBumper()).toggleOnTrue(liftToMiddle());
 
+    c.b().and(c.rightBumper()).toggleOnTrue(liftToMiddle());
+    c.b().and(c.leftBumper()).toggleOnTrue(aimLowerPeg());
 
     CommandBase grabGamepiece = race(
       extensionToGrab(), keepGrabberOpen()).finallyDo(end -> extensionBackIn()
