@@ -167,21 +167,21 @@ final public class InlineCommands {
   }
 
   public static CommandBase aimWithLimelight() {
-    final double LINED_UP = 1;
+    final double TOLERANCE = 1;
     final double SPEED = 0.04;
     return run(
       () -> {
         double horizontalOffset = limelight.getHorizontalOffset();
 
-        if (horizontalOffset > LINED_UP) {
+        if (horizontalOffset > TOLERANCE) {
           drivetrain.arcadeDrive(0, -SPEED);
-        } else if (horizontalOffset < LINED_UP) {
+        } else if (horizontalOffset < TOLERANCE) {
           drivetrain.arcadeDrive(0, SPEED);
         }
       },
       drivetrain
     )
-    .until(() -> abs(limelight.getHorizontalOffset()) < LINED_UP)
+    .until(() -> abs(limelight.getHorizontalOffset()) < TOLERANCE)
     .withName("aim with limelight");
   }
 
