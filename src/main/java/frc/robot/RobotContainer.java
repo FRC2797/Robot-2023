@@ -11,7 +11,7 @@ import static frc.robot.InlineCommands.*;
 import static frc.robot.Test.*;
 
 public class RobotContainer {
-  private final boolean IS_SEMI_AUTONOMOUS = false;
+  private final boolean IS_SEMI_AUTONOMOUS = true;
   CommandScheduler commandScheduler = CommandScheduler.getInstance();
 
 
