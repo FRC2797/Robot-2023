@@ -238,9 +238,9 @@ final public class InlineCommands {
   }
 
   private static CommandBase liftToPosition(double percentageOfHighestRotation) {
-    final double PROP_TERM = 0.01;
-    final double MIN_TERM = 0.05;
-    final double TOLERANCE = 0.04;
+    final double PROP_TERM = 0.2;
+    final double MIN_TERM = 0.1;
+    final double TOLERANCE = 0.02;
     final double setpoint = percentageOfHighestRotation;
     return
       run(() -> {
