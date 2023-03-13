@@ -20,7 +20,7 @@ public class TelescopeArm extends SubsystemBase {
     final boolean IS_INVERTED = true;
     motor.setInverted(IS_INVERTED);
 
-    final double UNITS_AT_FULL_EXTENSION = 42.8;
+    final double UNITS_AT_FULL_EXTENSION = 50;
     encoder.setPositionConversionFactor(1 / UNITS_AT_FULL_EXTENSION);
     encoder.setPosition(0);
 
@@ -36,11 +36,11 @@ public class TelescopeArm extends SubsystemBase {
   }
 
   public boolean isFullyExtended() {
-    return getPercentageExtended() > 0.9;
+    return getPercentageExtended() > 1;
   }
 
   public boolean isFullyIn() {
-    return getPercentageExtended() < 0.1;
+    return getPercentageExtended() < 0.05;
   }
 
   public CommandBase setPositionCommand(double percentageSetpoint) {
