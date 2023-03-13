@@ -100,6 +100,10 @@ public class Drivetrain extends SubsystemBase {
     MotorControllerGroup leftMotors = new MotorControllerGroup(frontLeft, backLeft);
     MotorControllerGroup rightMotors = new MotorControllerGroup(frontRight, backRight);
     rightMotors.setInverted(true);
+    frontRight.setInverted(false);
+    frontLeft.setInverted(false);
+    backRight.setInverted(false);
+    backLeft.setInverted(false);
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
     drive.setDeadband(0);
