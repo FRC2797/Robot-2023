@@ -312,6 +312,6 @@ final public class InlineCommands {
   }
 
   final public static CommandBase dropGamepiece() {
-    return keepGrabberOpen().raceWith(waitSeconds(0.2)).withName("Drop gamepiece");
+    return keepGrabberOpen().raceWith(waitSeconds(0.5)).withName("Drop gamepiece");
   }
 }
