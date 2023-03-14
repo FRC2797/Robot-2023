@@ -30,6 +30,7 @@ public class Test {
             liftToTop(),
             liftToMiddle(),
             liftToBottom(),
+            extensionBackIn(),
             extensionForBottom(),
             extensionForMiddle(),
             extensionForTop(),
