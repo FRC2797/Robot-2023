@@ -18,7 +18,7 @@ public class Test {
     */
 
     private static ShuffleboardTab testTab = Shuffleboard.getTab("Test");
-    public static void addTestsToShuffleboard() 
+    public static void addTestsToShuffleboard()
     {
 
         addCommandsToShuffleboard(
