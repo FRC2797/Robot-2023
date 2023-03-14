@@ -39,7 +39,8 @@ public class Test {
             twoGamepieceAuto(),
             chargingStation(),
             placeGamepiece.get(),
-            liftToTop().andThen(extensionForTop()).withName("Lift to top then extension for top")
+            liftToTop().andThen(extensionForTop()).withName("Lift to top then extension for top"),
+            liftToTop().repeatedly().withName("Keep lifting to top")
         );
     }
 
