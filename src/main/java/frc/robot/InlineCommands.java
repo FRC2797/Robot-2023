@@ -229,7 +229,7 @@ final public class InlineCommands {
   }
 
   public static CommandBase extensionToGrab() {
-    final double EXTENSION_PERCENTAGE = 0.1;
+    final double EXTENSION_PERCENTAGE = 0.25;
     return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE).withName("Extension to grab");
   }
 
