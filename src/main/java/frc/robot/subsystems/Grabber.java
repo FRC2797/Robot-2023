@@ -24,7 +24,7 @@ public class Grabber extends SubsystemBase {
     motor.setInverted(MOTOR_INVERSION);
     motor.setIdleMode(IdleMode.kBrake);
 
-    RelativeEncoder encoder = motor.getEncoder();
+    encoder = motor.getEncoder();
     final double COUNTS_FULLY_OPEN = 5;
     encoder.setPositionConversionFactor(1 / COUNTS_FULLY_OPEN);
 
