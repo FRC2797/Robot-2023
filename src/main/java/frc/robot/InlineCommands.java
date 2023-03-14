@@ -198,7 +198,7 @@ final public class InlineCommands {
   }
 
   public static CommandBase liftToTop() {
-    final double TOP_PERCENTAGE = 0.8;
+    final double TOP_PERCENTAGE = 0.95;
     return liftToPosition(TOP_PERCENTAGE);
   }
 
