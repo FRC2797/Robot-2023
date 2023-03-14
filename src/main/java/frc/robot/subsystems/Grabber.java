@@ -31,6 +31,7 @@ public class Grabber extends SubsystemBase {
 
     grabberTab.add(this);
     grabberTab.addDouble("Percentage Open", this::getPercentageOpen);
+    grabberTab.addBoolean("has gamepiece", this::hasGamepiece);
   }
 
 
