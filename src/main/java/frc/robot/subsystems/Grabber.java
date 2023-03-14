@@ -27,6 +27,7 @@ public class Grabber extends SubsystemBase {
     encoder = motor.getEncoder();
     final double COUNTS_FULLY_OPEN = 5;
     encoder.setPositionConversionFactor(1 / COUNTS_FULLY_OPEN);
+    encoder.setPosition(0);
 
     grabberTab.add(this);
   }
