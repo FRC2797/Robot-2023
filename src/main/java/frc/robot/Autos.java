@@ -19,7 +19,7 @@ public class Autos {
       keepGrabberOpen().raceWith(waitSeconds(0.2)),
       extensionBackIn(),
       liftToBottom()
-    );
+    ).withName("Placing a game piece");
 
   public static CommandBase chargingStation() {
     final double CHARGING_STATION_SPEED = -0.15;
