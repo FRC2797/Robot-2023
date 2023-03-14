@@ -33,7 +33,6 @@ public class Grabber extends SubsystemBase {
     grabberTab.addDouble("Percentage Open", this::getPercentageOpen);
   }
 
-  private final double OPENING_SPEED = 0.41;
 
   public CommandBase open(double speed) {
     CommandBase openCommand = startEnd(() -> motor.set(speed), () -> motor.set(0));
