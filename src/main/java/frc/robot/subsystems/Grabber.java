@@ -28,22 +28,10 @@ public class Grabber extends SubsystemBase {
     final double COUNTS_FULLY_OPEN = 32;
     encoder.setPositionConversionFactor(1 / COUNTS_FULLY_OPEN);
 
-    grabberTab.addBoolean("Is Open", this::isFullyOpen);
     grabberTab.add(this);
   }
 
   private final double OPENING_SPEED = 0.41;
-
-  public CommandBase fullyOpen() {
-    return open(OPENING_SPEED).until(this::isFullyOpen);
-  }
-
-  private final int OPEN_LIMIT_SWITCH_ID = 0;
-  private final DigitalInput openLimitSwitch = new DigitalInput(OPEN_LIMIT_SWITCH_ID);
-
-  private boolean isFullyOpen() {
-    return !openLimitSwitch.get();
-  }
 
   public CommandBase open(double speed) {
     CommandBase openCommand = startEnd(() -> motor.set(speed), () -> motor.set(0));
