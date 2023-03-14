@@ -12,7 +12,7 @@ public class Autos {
 
   }
 
-  private static Supplier<CommandBase> placeGamepiece =
+  public static Supplier<CommandBase> placeGamepiece =
     () -> sequence(
       liftToTop(),
       extensionForTop(),
