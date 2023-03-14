@@ -234,7 +234,7 @@ final public class InlineCommands {
   }
 
   public static CommandBase extensionBackIn() {
-    return telescopeArm.setPositionCommand(0);
+    return telescopeArm.setPositionCommand(0).withName("Extension back in");
   }
 
   private static CommandBase liftToPosition(double percentageOfHighestRotation) {
