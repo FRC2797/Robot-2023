@@ -20,7 +20,7 @@ public class TelescopeArm extends SubsystemBase {
     final boolean IS_INVERTED = true;
     motor.setInverted(IS_INVERTED);
 
-    final double UNITS_AT_FULL_EXTENSION = 50;
+    final double UNITS_AT_FULL_EXTENSION = 64.5;
     encoder.setPositionConversionFactor(1 / UNITS_AT_FULL_EXTENSION);
     encoder.setPosition(0);
 
