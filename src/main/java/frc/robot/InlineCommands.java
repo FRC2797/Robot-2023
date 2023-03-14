@@ -310,4 +310,8 @@ final public class InlineCommands {
     final double GRABBER_SPEED = 0.4;
     return grabber.open(GRABBER_SPEED);
   }
+
+  final public static CommandBase dropGamepiece() {
+    return keepGrabberOpen().raceWith(waitSeconds(0.2)).withName("Drop gamepiece");
+  }
 }
