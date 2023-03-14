@@ -101,7 +101,7 @@ public class RobotContainer {
     c.leftTrigger().and(hasGamepiece)
       .toggleOnTrue(
         sequence(
-          keepGrabberOpen().raceWith(waitSeconds(0.2)),
+          dropGamepiece(),
           extensionBackIn()
         )
     );
