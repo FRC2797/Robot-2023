@@ -10,7 +10,7 @@ public class Test {
     // private CommandBase test1()
     // private CommandBase test2()
     // ...
-    
+
     /*  public void addTestsToShuffleboard() {
         testTab.add(test1());
         testTab.add(test2());
@@ -37,7 +37,9 @@ public class Test {
             aimLowerPeg(),
             aimTopPeg(),
             twoGamepieceAuto(),
-            chargingStation()
+            chargingStation(),
+            placeGamepiece.get(),
+            liftToTop().andThen(extensionForTop()).withName("Lift to top then extension for top")
         );
     }
 
