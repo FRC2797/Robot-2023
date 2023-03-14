@@ -46,13 +46,14 @@ public class TelescopeArm extends SubsystemBase {
     return getPercentageExtended() < 0.05;
   }
 
+  double error = 0;
   public CommandBase setPositionCommand(double percentageSetpoint) {
     final double PROPORTIONAL_TERM = 0.5;
     final double MIN_TERM = 0.05;
     final double TOLERANCE = 0.03;
 
     return run(() -> {
-      double error = percentageSetpoint - getPercentageExtended();
+      error = percentageSetpoint - getPercentageExtended();
       double speed = (error * PROPORTIONAL_TERM) + (signum(error) * MIN_TERM);
       SmartDashboard.putNumber("Error", error);
       SmartDashboard.putNumber("Speed", speed);
