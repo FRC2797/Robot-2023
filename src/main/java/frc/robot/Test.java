@@ -43,7 +43,8 @@ public class Test {
             liftToTop().andThen(extensionForTop()).withName("Lift to top then extension for top"),
             liftToTop().repeatedly().withName("Keep lifting to top"),
             liftToMiddle().repeatedly().withName("Keep lifting to middle"),
-            dropGamepiece()
+            dropGamepiece(),
+            keepGrabberOpen()
         );
     }
 
