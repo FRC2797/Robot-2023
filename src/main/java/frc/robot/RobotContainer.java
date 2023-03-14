@@ -13,6 +13,8 @@ import static edu.wpi.first.wpilibj2.command.Commands.*;
 import static frc.robot.InlineCommands.*;
 import static frc.robot.Test.*;
 
+import java.util.function.Supplier;
+
 public class RobotContainer {
   private final boolean IS_SEMI_AUTONOMOUS = true;
   CommandScheduler commandScheduler = CommandScheduler.getInstance();
@@ -104,17 +106,15 @@ public class RobotContainer {
     c.rightTrigger().whileTrue(grabGamepiece);
     c.rightTrigger().onFalse(extendBackInAfterGrabbing);
 
+    Supplier<Command> goIntoNeutral = () -> sequence(extensionBackIn(), liftToBottom());
+
     Trigger hasGamepiece = new Trigger(() -> grabber.hasGamepiece());
     c.leftTrigger().and(hasGamepiece)
       .toggleOnTrue(
-        sequence(
-          dropGamepiece(),
-          extensionBackIn()
-        )
-    );
+        dropGamepiece().andThen(goIntoNeutral.get())
+      );
 
-    CommandBase goIntoSeeking = sequence(extensionBackIn(), liftToBottom());
-    c.leftTrigger().and((hasGamepiece.negate())).toggleOnTrue(goIntoSeeking);
+    c.leftTrigger().and((hasGamepiece.negate())).toggleOnTrue(goIntoNeutral.get());
   }
 
   //TODO: Code the switching of autos with a selector on shuffleboard
