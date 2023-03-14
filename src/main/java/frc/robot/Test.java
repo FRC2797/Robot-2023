@@ -34,6 +34,7 @@ public class Test {
             extensionForBottom(),
             extensionForMiddle(),
             extensionForTop(),
+            extensionToGrab(),
             aimAprilTag(),
             aimLowerPeg(),
             aimTopPeg(),
