@@ -113,7 +113,7 @@ public class RobotContainer {
         )
     );
 
-    CommandBase goIntoSeeking = sequence(liftToBottom(), extensionBackIn());
+    CommandBase goIntoSeeking = sequence(extensionBackIn(), liftToBottom());
     c.leftTrigger().and((hasGamepiece.negate())).toggleOnTrue(goIntoSeeking);
   }
 
