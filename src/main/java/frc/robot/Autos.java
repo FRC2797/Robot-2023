@@ -16,7 +16,7 @@ public class Autos {
     () -> sequence(
       liftToTop(),
       extensionForTop(),
-      keepGrabberOpen().raceWith(waitSeconds(0.2)),
+      dropGamepiece(),
       extensionBackIn(),
       liftToBottom()
     ).withName("Placing a game piece");
