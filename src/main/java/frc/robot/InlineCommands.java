@@ -213,18 +213,18 @@ final public class InlineCommands {
   }
 
   public static CommandBase extensionForTop() {
-    final double EXTENSION_PERCENTAGE = 0.3;
+    final double EXTENSION_PERCENTAGE = 1;
     return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
 
   }
 
   public static CommandBase extensionForMiddle() {
-    final double EXTENSION_PERCENTAGE = 0.2;
+    final double EXTENSION_PERCENTAGE = 0.6;
     return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
   }
 
   public static CommandBase extensionForBottom() {
-    final double EXTENSION_PERCENTAGE = 0.1;
+    final double EXTENSION_PERCENTAGE = 0.2;
     return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
   }
 
