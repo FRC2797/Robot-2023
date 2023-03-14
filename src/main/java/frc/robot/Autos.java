@@ -13,13 +13,20 @@ public class Autos {
   }
 
   public static Supplier<CommandBase> placeGamepiece =
-    () -> sequence(
-      liftToTop(),
-      extensionForTop(),
-      dropGamepiece(),
-      extensionBackIn(),
-      liftToBottom()
-    ).withName("Placing a game piece");
+    () ->
+    liftToTop()
+    .andThen(
+      liftToTop().repeatedly()
+      .raceWith(
+        sequence(
+          extensionForTop(),
+          dropGamepiece(),
+          extensionBackIn()
+        )
+      )
+    )
+    .andThen(liftToBottom())
+    .withName("Placing a game piece");
 
   public static CommandBase chargingStation() {
     final double CHARGING_STATION_SPEED = -0.15;
