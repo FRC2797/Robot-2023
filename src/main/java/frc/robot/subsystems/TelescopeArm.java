@@ -25,6 +25,7 @@ public class TelescopeArm extends SubsystemBase {
     encoder.setPosition(0);
 
     Shuffleboard.getTab("Telescope Arm").addDouble("Encoder Position", encoder::getPosition);
+    Shuffleboard.getTab("Telescope Arm").add(this);
   }
 
   public void setSpeed(double speed) {
