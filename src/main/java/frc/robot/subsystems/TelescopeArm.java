@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -26,6 +27,7 @@ public class TelescopeArm extends SubsystemBase {
 
     Shuffleboard.getTab("Telescope Arm").addDouble("Encoder Position", encoder::getPosition);
     Shuffleboard.getTab("Telescope Arm").add(this);
+    motor.setIdleMode(IdleMode.kBrake);
   }
 
   public void setSpeed(double speed) {
