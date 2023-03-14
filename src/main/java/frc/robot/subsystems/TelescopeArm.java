@@ -49,7 +49,7 @@ public class TelescopeArm extends SubsystemBase {
   double error = 0;
   public CommandBase setPositionCommand(double percentageSetpoint) {
     final double PROPORTIONAL_TERM = 0.5;
-    final double MIN_TERM = 0.05;
+    final double MIN_TERM = 0.2;
     final double TOLERANCE = 0.03;
 
     return run(() -> {
@@ -60,7 +60,7 @@ public class TelescopeArm extends SubsystemBase {
 
       setSpeed(speed);
     })
-    .until(() -> abs(getPercentageExtended()) < TOLERANCE)
+    .until(() -> abs(error) < TOLERANCE)
     .finallyDo(end -> setSpeed(0))
     .withName("Set telescopic arm to " + percentageSetpoint);
   }
