@@ -1,8 +1,11 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -90,12 +93,16 @@ public class RobotContainer {
     c.b().and(c.rightBumper()).toggleOnTrue(liftToMiddle());
     c.b().and(c.leftBumper()).toggleOnTrue(aimLowerPeg());
 
-    CommandBase grabGamepiece = race(
-      extensionToGrab(), keepGrabberOpen()).finallyDo(end -> extensionBackIn()
+    // Three different seeking
+    CommandBase extendBackInAfterGrabbing = extensionBackIn().withName("Extend back in after grabbing");
+    CommandBase extensionToGrabWhileGrabbingGamepiece = extensionToGrab().withName("extensionToGrabWhileGrabbingGamepiece");
+    CommandBase grabGamepiece = parallel(
+      new ScheduleCommand(extensionToGrabWhileGrabbingGamepiece),
+      keepGrabberOpen()
     );
 
-    c.rightTrigger().onTrue(runOnce(() -> grabGamepiece.schedule()));
-    c.rightTrigger().onFalse(runOnce(() -> grabGamepiece.cancel()));
+    c.rightTrigger().whileTrue(grabGamepiece);
+    c.rightTrigger().onFalse(extendBackInAfterGrabbing);
 
     Trigger hasGamepiece = new Trigger(() -> grabber.hasGamepiece());
     c.leftTrigger().and(hasGamepiece)
