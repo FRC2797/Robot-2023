@@ -30,6 +30,7 @@ public class Grabber extends SubsystemBase {
     encoder.setPosition(0);
 
     grabberTab.add(this);
+    grabberTab.addDouble("Percentage Open", this::getPercentageOpen);
   }
 
   private final double OPENING_SPEED = 0.41;
