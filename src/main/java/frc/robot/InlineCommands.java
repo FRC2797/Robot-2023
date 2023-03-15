@@ -102,25 +102,27 @@ final public class InlineCommands {
   }
 
 
-  public static CommandBase driveUntilLevelOnChargingStation(double slowSpeed) {
-    final double SLOW_SPEED = slowSpeed;
-    final double SLOW_SPEED_BACKWARD = -0.05;
-    final double WAIT_BEFORE_OVERSHOOT_CORRECTION = 0.5;
-    final double PITCHED_VALUE = 15;
 
-    Command driveForwardSlowly =
-        run(() -> drivetrain.arcadeDrive(SLOW_SPEED, 0), drivetrain);
+  private static CommandBase driveXCmd(double speed) {
+    return run(() -> drivetrain.arcadeDrive(speed, 0), drivetrain);
+  }
+
+
+  private static CommandBase waitUntilLessThanPitch(double pitch) {
+    return waitUntil(() -> Math.abs(navx.getPitch()) < pitch);
+  }
+
+  public static CommandBase driveUntilLevelOnChargingStation(double slowSpeed) {
+    final double slowerSpeed = slowSpeed - 0.05 * (Math.signum(slowSpeed));
+    final double WAIT_BEFORE_OVERSHOOT_CORRECTION = 0.5;
+    final double PITCHED_VALUE = 12;
 
     Command waitUntilPitched = waitUntil(() -> Math.abs(navx.getPitch()) > PITCHED_VALUE);
 
-    Command driveBackwardSlowly =
-        run(() -> drivetrain.arcadeDrive(SLOW_SPEED_BACKWARD, 0), drivetrain);
-
-    return (driveForwardSlowly
-      .raceWith(waitUntilPitched.andThen(waitUntilLevel()))
-      .andThen(
-        driveBackwardSlowly.raceWith(
-          waitSeconds(WAIT_BEFORE_OVERSHOOT_CORRECTION).andThen(waitUntilLevel())))).withName("Drive Until level on Charging station with " + slowSpeed + " speed");
+    return
+      (driveXCmd(slowSpeed).raceWith(waitUntil(() -> Math.abs(navx.getPitch()) > PITCHED_VALUE)))
+      .andThen(driveXCmd(slowerSpeed).raceWith(waitUntilLessThanPitch(8)))
+      .withName("Drive Until level on Charging station with " + slowSpeed + " speed");
   }
 
   public static CommandBase driveDistance(double inches) {
@@ -162,7 +164,7 @@ final public class InlineCommands {
   }
 
   public static CommandBase waitUntilLevel() {
-    final double LEVELED_VALUE = 1;
+    final double LEVELED_VALUE = 3;
 
     return waitUntil(() -> Math.abs(navx.getPitch()) < LEVELED_VALUE);
   }
