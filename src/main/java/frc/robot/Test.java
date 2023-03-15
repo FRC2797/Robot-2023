@@ -27,6 +27,7 @@ public class Test {
             driveRotation(360),
             driveDistance(40),
             driveDistance(120),
+            driveUntilLevelOnChargingStation(-0.15),
             liftToTop(),
             liftToMiddle(),
             liftToBottom(),
