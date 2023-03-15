@@ -95,20 +95,16 @@ public class RobotContainer {
     c.b().and(c.rightBumper()).toggleOnTrue(liftToMiddle());
     c.b().and(c.leftBumper()).toggleOnTrue(aimLowerPeg());
 
-    // Three different seeking
-    CommandBase extendBackInAfterGrabbing = extensionBackIn().withName("Extend back in after grabbing");
-    CommandBase extensionToGrabWhileGrabbingGamepiece = extensionToGrab().withName("extensionToGrabWhileGrabbingGamepiece");
-    CommandBase grabGamepiece = parallel(
-      new ScheduleCommand(extensionToGrabWhileGrabbingGamepiece),
-      keepGrabberOpen()
-    );
-
-    c.rightTrigger().whileTrue(grabGamepiece);
-    c.rightTrigger().onFalse(
+    CommandBase rightTriggerFalseCommand =
       waitSeconds(0.5)
-      .andThen(extendBackInAfterGrabbing)
-      .andThen(liftToBottom())
-    );
+      .andThen(extensionBackIn())
+      .andThen(liftToBottom()).withName("Right trigger false command");
+
+    c.rightTrigger().and(leftAndRightBumperNotPressed).whileTrue(grabGamepiece(0.1, 0.1)).onFalse(rightTriggerFalseCommand);
+    c.rightTrigger().and(c.leftBumper()) .whileTrue(grabGamepiece(0.5, 0.5)).onFalse(rightTriggerFalseCommand);
+    // Bottom line doesn't work for some reason?
+    c.rightTrigger().and(c.rightBumper()).whileTrue(grabGamepiece(0.5, 0.2)).onFalse(rightTriggerFalseCommand);
+    c.rightTrigger().onFalse(rightTriggerFalseCommand);
 
     Supplier<Command> goIntoNeutral = () -> sequence(extensionBackIn(), liftToBottom());
 
@@ -131,4 +127,16 @@ public class RobotContainer {
   }
 
 
+  private CommandBase grabGamepiece(double liftHeight, double extension) {
+    return sequence(
+      race(
+        keepGrabberOpen(),
+        liftToPosition(liftHeight)
+      ),
+      new ScheduleCommand(
+        telescopeArm.setPositionCommand(extension).withName("Grab gamepiece set position command")
+      ),
+      keepGrabberOpen()
+    );
+  }
 }
