@@ -119,7 +119,7 @@ final public class InlineCommands {
       .raceWith(waitUntilPitched.andThen(waitUntilLevel()))
       .andThen(
         driveBackwardSlowly.raceWith(
-          waitSeconds(WAIT_BEFORE_OVERSHOOT_CORRECTION).andThen(waitUntilLevel()))));
+          waitSeconds(WAIT_BEFORE_OVERSHOOT_CORRECTION).andThen(waitUntilLevel())))).withName("Drive Until level on Charging station with " + slowSpeed + " speed");
   }
 
   public static CommandBase driveDistance(double inches) {
