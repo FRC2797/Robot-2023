@@ -237,7 +237,7 @@ final public class InlineCommands {
     return telescopeArm.setPositionCommand(0).withName("Extension back in");
   }
 
-  private static CommandBase liftToPosition(double percentageOfHighestRotation) {
+  public static CommandBase liftToPosition(double percentageOfHighestRotation) {
     final double PROP_TERM = 0.2;
     final double MIN_TERM = 0.1;
     final double TOLERANCE = 0.02;
