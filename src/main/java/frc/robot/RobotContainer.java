@@ -104,7 +104,11 @@ public class RobotContainer {
     );
 
     c.rightTrigger().whileTrue(grabGamepiece);
-    c.rightTrigger().onFalse(waitSeconds(0.5).andThen(extendBackInAfterGrabbing));
+    c.rightTrigger().onFalse(
+      waitSeconds(0.5)
+      .andThen(extendBackInAfterGrabbing)
+      .andThen(liftToBottom())
+    );
 
     Supplier<Command> goIntoNeutral = () -> sequence(extensionBackIn(), liftToBottom());
 
