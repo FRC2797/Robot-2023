@@ -5,6 +5,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,6 +13,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Lift extends SubsystemBase {
   final private CANSparkMax motor;
   final private RelativeEncoder encoder;
+  final private int LIMIT_SWITCH_ID = 0;
+  final private DigitalInput bottomLimitSwitch = new DigitalInput(0);
 
   public Lift() {
     final int MOTOR_ID = 5;
@@ -43,11 +46,17 @@ public class Lift extends SubsystemBase {
   }
 
   public boolean isFullyDown() {
-    return getPercentageOfHighestRotation() < 0.05;
+    return !bottomLimitSwitch.get();
   }
 
   public void resetEncoder() {
     encoder.setPosition(0);
+  }
+
+  @Override
+  public void periodic() {
+    if (isFullyDown())
+      encoder.setPosition(0);
   }
 
   private void configureShuffleboard() {

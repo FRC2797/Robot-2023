@@ -211,8 +211,13 @@ final public class InlineCommands {
   }
 
   public static CommandBase liftToBottom() {
+    CommandBase goDownUntilSwitchHit =
+    run(() -> lift.setSpeed(0.1), lift)
+      .finallyDo(end -> lift.setSpeed(0))
+      .until(lift::isFullyDown);
     final double BOTTOM_PERCENTAGE = 0;
-    return liftToPosition(BOTTOM_PERCENTAGE);
+
+    return liftToPosition(BOTTOM_PERCENTAGE).andThen(goDownUntilSwitchHit);
   }
 
   public static CommandBase extensionForTop() {
@@ -237,7 +242,11 @@ final public class InlineCommands {
   }
 
   public static CommandBase extensionBackIn() {
-    return telescopeArm.setPositionCommand(0).withName("Extension back in");
+    CommandBase extendInUntilSwitchHit =
+    run(() -> telescopeArm.setSpeed(0.1), telescopeArm)
+      .finallyDo(end -> telescopeArm.setSpeed(0))
+      .until(telescopeArm::isFullyIn);
+    return telescopeArm.setPositionCommand(0).andThen(extendInUntilSwitchHit).withName("Extension back in");
   }
 
   public static CommandBase liftToPosition(double percentageOfHighestRotation) {

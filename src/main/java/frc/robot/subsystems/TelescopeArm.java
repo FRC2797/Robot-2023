@@ -5,6 +5,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -16,6 +17,7 @@ public class TelescopeArm extends SubsystemBase {
   private final int MOTOR_ID = 6;
   private final CANSparkMax motor = new CANSparkMax(MOTOR_ID, MotorType.kBrushless);
   private final RelativeEncoder encoder = motor.getEncoder();
+  final private DigitalInput fullyExtendedInLimitSwitch = new DigitalInput(1);
 
   public TelescopeArm() {
     final boolean IS_INVERTED = true;
@@ -27,6 +29,7 @@ public class TelescopeArm extends SubsystemBase {
 
     Shuffleboard.getTab("Telescope Arm").addDouble("Encoder Position", encoder::getPosition);
     Shuffleboard.getTab("Telescope Arm").add(this);
+    Shuffleboard.getTab("Telescope Arm").addBoolean("isFullyIn", this::isFullyIn);
     motor.setIdleMode(IdleMode.kBrake);
   }
 
@@ -43,7 +46,14 @@ public class TelescopeArm extends SubsystemBase {
   }
 
   public boolean isFullyIn() {
-    return getPercentageExtended() < 0.05;
+    return !fullyExtendedInLimitSwitch.get();
+  }
+
+  @Override
+  public void periodic() {
+    if (isFullyIn()) {
+      encoder.setPosition(0);
+    }
   }
 
   double error = 0;
