@@ -243,7 +243,7 @@ final public class InlineCommands {
 
   public static CommandBase extensionBackIn() {
     CommandBase extendInUntilSwitchHit =
-    run(() -> telescopeArm.setSpeed(0.1), telescopeArm)
+    run(() -> telescopeArm.setSpeed(-0.1), telescopeArm)
       .finallyDo(end -> telescopeArm.setSpeed(0))
       .until(telescopeArm::isFullyIn);
     return telescopeArm.setPositionCommand(0).andThen(extendInUntilSwitchHit).withName("Extension back in");
