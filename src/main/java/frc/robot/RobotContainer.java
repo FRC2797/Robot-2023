@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -17,6 +18,7 @@ import java.util.function.Supplier;
 
 public class RobotContainer {
   private final boolean IS_SEMI_AUTONOMOUS = true;
+  private final SendableChooser<CommandBase> autoChooser = new SendableChooser<>();
   CommandScheduler commandScheduler = CommandScheduler.getInstance();
 
 
@@ -119,11 +121,15 @@ public class RobotContainer {
 
   //TODO: Code the switching of autos with a selector on shuffleboard
   public Command getAutonomousCommand() {
-    return Autos.chargingStation();
+    return autoChooser.getSelected();
   }
 
   public void clearAllButtonBindings() {
     commandScheduler.getActiveButtonLoop().clear();
+  }
+
+  private void configureAutoChooser() {
+    autoChooser.setDefaultOption("Place gamepiece at top", Autos.placeGamepiece.get());
   }
 
 

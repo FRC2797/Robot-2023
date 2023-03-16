@@ -15,4 +15,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_robotContainer = new RobotContainer();
   }
+
+  @Override
+  public void autonomousInit() {
+    m_robotContainer.getAutonomousCommand().schedule();
+  }
+
+  @Override
+  public void autonomousExit() {
+    CommandScheduler.getInstance().cancelAll();
+  }
 }
