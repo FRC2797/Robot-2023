@@ -25,6 +25,7 @@ public class RobotContainer {
   public RobotContainer() {
     configureBindings(IS_SEMI_AUTONOMOUS);
     addTestsToShuffleboard();
+    configureAutoChooser();
   }
 
   CommandXboxController c = controller;
@@ -103,6 +104,7 @@ public class RobotContainer {
       .andThen(liftToBottom()).withName("Right trigger false command");
 
     c.rightTrigger().and(leftAndRightBumperNotPressed).whileTrue(keepGrabberOpen()).onFalse(rightTriggerFalseCommand);
+    // Have one on right trigger and both bumpers
     c.rightTrigger().and(c.leftBumper()) .whileTrue(grabGamepiece(0.2, 0.2)).onFalse(rightTriggerFalseCommand);
     // Bottom line doesn't work for some reason?
     c.rightTrigger().and(c.rightBumper()).whileTrue(grabGamepiece(0.3, 0.3)).onFalse(rightTriggerFalseCommand);
@@ -130,6 +132,7 @@ public class RobotContainer {
 
   private void configureAutoChooser() {
     autoChooser.setDefaultOption("Place gamepiece at top", Autos.placeGamepiece.get());
+    Shuffleboard.getTab("Driver").add(autoChooser);
   }
 
 
