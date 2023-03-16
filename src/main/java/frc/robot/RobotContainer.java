@@ -103,9 +103,9 @@ public class RobotContainer {
       .andThen(liftToBottom()).withName("Right trigger false command");
 
     c.rightTrigger().and(leftAndRightBumperNotPressed).whileTrue(grabGamepiece(0.1, 0.1)).onFalse(rightTriggerFalseCommand);
-    c.rightTrigger().and(c.leftBumper()) .whileTrue(grabGamepiece(0.5, 0.5)).onFalse(rightTriggerFalseCommand);
+    c.rightTrigger().and(c.leftBumper()) .whileTrue(grabGamepiece(0.2, 0.2)).onFalse(rightTriggerFalseCommand);
     // Bottom line doesn't work for some reason?
-    c.rightTrigger().and(c.rightBumper()).whileTrue(grabGamepiece(0.5, 0.2)).onFalse(rightTriggerFalseCommand);
+    c.rightTrigger().and(c.rightBumper()).whileTrue(grabGamepiece(0.3, 0.3)).onFalse(rightTriggerFalseCommand);
     c.rightTrigger().onFalse(rightTriggerFalseCommand);
 
     Supplier<Command> goIntoNeutral = () -> sequence(extensionBackIn(), liftToBottom());
