@@ -212,7 +212,7 @@ final public class InlineCommands {
 
   public static CommandBase liftToBottom() {
     CommandBase goDownUntilSwitchHit =
-    run(() -> lift.setSpeed(0.1), lift)
+    run(() -> lift.setSpeed(-0.1), lift)
       .finallyDo(end -> lift.setSpeed(0))
       .until(lift::isFullyDown);
     final double BOTTOM_PERCENTAGE = 0;
