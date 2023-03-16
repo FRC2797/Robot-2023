@@ -26,7 +26,7 @@ public class Lift extends SubsystemBase {
     motor.setIdleMode(IS_BRAKED ? IdleMode.kBrake : IdleMode.kCoast);
 
     encoder = motor.getEncoder();
-    final double ENCODER_COUNTS_FOR_HIGHEST_ROTATION = 52;
+    final double ENCODER_COUNTS_FOR_HIGHEST_ROTATION = 41.6;
     encoder.setPositionConversionFactor(1 / ENCODER_COUNTS_FOR_HIGHEST_ROTATION);
     resetEncoder();
 
