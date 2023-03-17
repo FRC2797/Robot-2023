@@ -19,7 +19,7 @@ public class Autos {
       liftToTop().repeatedly()
       .raceWith(
         sequence(
-          extensionForTop(),
+          extendForTop(),
           dropGamepiece(),
           extensionBackIn()
         )
