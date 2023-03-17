@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static java.lang.Math.signum;
 import static java.lang.Math.abs;
+import static frc.robot.Constants.showNonessentialShuffleboardInfo;
 
 public class TelescopeArm extends SubsystemBase {
   private final int MOTOR_ID = 6;
@@ -27,10 +28,12 @@ public class TelescopeArm extends SubsystemBase {
     encoder.setPositionConversionFactor(1 / UNITS_AT_FULL_EXTENSION);
     encoder.setPosition(0);
 
-    Shuffleboard.getTab("Telescope Arm").addDouble("Encoder Position", encoder::getPosition);
-    Shuffleboard.getTab("Telescope Arm").add(this);
-    Shuffleboard.getTab("Telescope Arm").addBoolean("isFullyIn", this::isFullyIn);
-    motor.setIdleMode(IdleMode.kBrake);
+    if (showNonessentialShuffleboardInfo) {
+      Shuffleboard.getTab("Telescope Arm").addDouble("Encoder Position", encoder::getPosition);
+      Shuffleboard.getTab("Telescope Arm").add(this);
+      Shuffleboard.getTab("Telescope Arm").addBoolean("isFullyIn", this::isFullyIn);
+      motor.setIdleMode(IdleMode.kBrake);
+    }
   }
 
   public void setSpeed(double speed) {

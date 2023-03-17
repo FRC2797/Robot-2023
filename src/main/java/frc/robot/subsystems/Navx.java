@@ -4,6 +4,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Constants.showNonessentialShuffleboardInfo;
 
 public class Navx extends SubsystemBase {
   private AHRS ahrs = new AHRS();
@@ -11,11 +12,13 @@ public class Navx extends SubsystemBase {
   public Navx() {
     calibrate();
 
-    ShuffleboardTab navxTab = Shuffleboard.getTab("navx");
-    navxTab.addDouble("Current Pitch", this::getPitch);
-    navxTab.addDouble("Current Roll", this::getRoll);
-    navxTab.addDouble("Current Yaw", this::getYaw);
-    navxTab.addBoolean("Is Calibrating", ahrs::isCalibrating);
+    if (showNonessentialShuffleboardInfo) {
+      ShuffleboardTab navxTab = Shuffleboard.getTab("navx");
+      navxTab.addDouble("Current Pitch", this::getPitch);
+      navxTab.addDouble("Current Roll", this::getRoll);
+      navxTab.addDouble("Current Yaw", this::getYaw);
+      navxTab.addBoolean("Is Calibrating", ahrs::isCalibrating);
+    }
   }
 
   public void calibrate() {

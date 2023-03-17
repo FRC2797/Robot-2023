@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Constants.showNonessentialShuffleboardInfo;
 
 public class Grabber extends SubsystemBase {
   private CANSparkMax motor;
@@ -29,9 +30,11 @@ public class Grabber extends SubsystemBase {
     encoder.setPositionConversionFactor(1 / COUNTS_FULLY_OPEN);
     encoder.setPosition(0);
 
-    grabberTab.add(this);
-    grabberTab.addDouble("Percentage Open", this::getPercentageOpen);
-    grabberTab.addBoolean("has gamepiece", this::hasGamepiece);
+    if (showNonessentialShuffleboardInfo) {
+      grabberTab.add(this);
+      grabberTab.addDouble("Percentage Open", this::getPercentageOpen);
+      grabberTab.addBoolean("has gamepiece", this::hasGamepiece);
+    }
   }
 
 

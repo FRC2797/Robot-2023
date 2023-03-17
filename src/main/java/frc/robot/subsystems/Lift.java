@@ -5,6 +5,8 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import static frc.robot.Constants.showNonessentialShuffleboardInfo;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -30,7 +32,8 @@ public class Lift extends SubsystemBase {
     encoder.setPositionConversionFactor(1 / ENCODER_COUNTS_FOR_HIGHEST_ROTATION);
     resetEncoder();
 
-    configureShuffleboard();
+    if (showNonessentialShuffleboardInfo)
+      configureShuffleboard();
   }
 
   public void setSpeed(double speed) {
