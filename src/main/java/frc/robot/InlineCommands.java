@@ -276,10 +276,10 @@ final public class InlineCommands {
     return switchPipeline.andThen(aimWithLimelight());
   }
 
-  final private static double LIFT_SPEED = 0.15;
+  final private static double LIFT_SPEED = 0.20;
   public static CommandBase liftUp() {
     return run(() -> {
-      if (!lift.isFullyUp())
+      if (true)
         lift.setSpeed(LIFT_SPEED);
       else
         lift.setSpeed(0);
