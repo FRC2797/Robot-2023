@@ -66,7 +66,7 @@ public class RobotContainer {
     c.povUp().whileTrue(liftUp());
     c.povDown().whileTrue(liftDown());
 
-    
+
 
     c.povRight().whileTrue(telescopeForward());
     c.povLeft().whileTrue(telescopeBackward());
@@ -76,56 +76,12 @@ public class RobotContainer {
     c.povDownRight().whileTrue(liftDown().deadlineWith(telescopeForward()));
     c.povDownLeft().whileTrue(liftDown().deadlineWith(telescopeBackward()));
 
-    Trigger leftAndRightBumperNotPressed = (c.leftBumper().or(c.rightBumper())).negate();
-    c.y().and(leftAndRightBumperNotPressed).toggleOnTrue(
-      sequence(aimTopPeg(), liftToTop(), extensionForTop())
-    );
+    c.y().toggleOnTrue(liftToTop().andThen(keepLiftingUp().deadlineWith(extendForTop())));
+    c.b().toggleOnTrue(liftToTop().andThen(keepLiftingUp().deadlineWith(extendForMiddle())));
+    c.a().toggleOnTrue(extensionBackIn().andThen(liftToBottom()));
+    c.x().onTrue(dropGamepiece());
 
-    c.b().and(leftAndRightBumperNotPressed).toggleOnTrue(
-      sequence(aimLowerPeg(), liftToMiddle(), extensionForMiddle())
-    );
-
-    c.x().and(leftAndRightBumperNotPressed).toggleOnTrue(
-      sequence(aimAprilTag(), liftToTop(), extensionForTop())
-    );
-
-    c.a().and(leftAndRightBumperNotPressed).toggleOnTrue(
-      sequence(aimAprilTag(), liftToMiddle(), extensionForMiddle())
-    );
-
-    c.y().and(c.leftBumper()).toggleOnTrue(aimTopPeg());
-    c.y().and(c.rightBumper()).toggleOnTrue(liftToTop());
-
-    c.x().and(c.leftBumper()).toggleOnTrue(aimAprilTag());
-    c.x().and(c.rightBumper()).toggleOnTrue(liftToTop());
-
-    c.a().and(c.leftBumper()).toggleOnTrue(aimAprilTag());
-    c.a().and(c.rightBumper()).toggleOnTrue(liftToMiddle());
-
-    c.b().and(c.rightBumper()).toggleOnTrue(liftToMiddle());
-    c.b().and(c.leftBumper()).toggleOnTrue(aimLowerPeg());
-
-    CommandBase rightTriggerFalseCommand =
-      waitSeconds(0.5)
-      .andThen(extensionBackIn())
-      .andThen(liftToBottom()).withName("Right trigger false command");
-
-    c.rightTrigger().and(leftAndRightBumperNotPressed).whileTrue(keepGrabberOpen()).onFalse(rightTriggerFalseCommand);
-    // Have one on right trigger and both bumpers
-    c.rightTrigger().and(c.leftBumper()) .whileTrue(grabGamepiece(0.2, 0.2)).onFalse(rightTriggerFalseCommand);
-    // Bottom line doesn't work for some reason?
-    c.rightTrigger().and(c.rightBumper()).whileTrue(grabGamepiece(0.3, 0.3)).onFalse(rightTriggerFalseCommand);
-    c.rightTrigger().onFalse(rightTriggerFalseCommand);
-
-    Supplier<Command> goIntoNeutral = () -> sequence(extensionBackIn(), liftToBottom());
-
-    Trigger hasGamepiece = new Trigger(() -> grabber.hasGamepiece());
-    c.leftTrigger().and(hasGamepiece)
-      .toggleOnTrue(
-        dropGamepiece().andThen(goIntoNeutral.get())
-      );
-
-    c.leftTrigger().and((hasGamepiece.negate())).toggleOnTrue(goIntoNeutral.get());
+    c.rightTrigger().whileTrue(keepGrabberOpen());
   }
 
   //TODO: Code the switching of autos with a selector on shuffleboard

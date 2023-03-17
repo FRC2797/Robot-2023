@@ -220,22 +220,6 @@ final public class InlineCommands {
     return liftToPosition(BOTTOM_PERCENTAGE).andThen(goDownUntilSwitchHit);
   }
 
-  public static CommandBase extensionForTop() {
-    final double EXTENSION_PERCENTAGE = 1;
-    return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
-
-  }
-
-  public static CommandBase extensionForMiddle() {
-    final double EXTENSION_PERCENTAGE = 0.6;
-    return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
-  }
-
-  public static CommandBase extensionForBottom() {
-    final double EXTENSION_PERCENTAGE = 0.2;
-    return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE);
-  }
-
   public static CommandBase extensionToGrab() {
     final double EXTENSION_PERCENTAGE = 0.25;
     return telescopeArm.setPositionCommand(EXTENSION_PERCENTAGE).withName("Extension to grab");
@@ -274,6 +258,18 @@ final public class InlineCommands {
   private static CommandBase switchPipelineThenAim(Pipeline pipeline) {
     Command switchPipeline = limelight.switchPipelineCommand(pipeline);
     return switchPipeline.andThen(aimWithLimelight());
+  }
+
+  public static CommandBase keepLiftingUp() {
+    return run(() -> lift.setSpeed(0.2));
+  }
+
+  public static CommandBase extendForTop() {
+    return telescopeArm.setPositionCommand(1);
+  }
+
+  public static CommandBase extendForMiddle() {
+    return telescopeArm.setPositionCommand(0.19);
   }
 
   final private static double LIFT_SPEED = 0.20;
