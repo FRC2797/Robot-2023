@@ -66,8 +66,15 @@ public class RobotContainer {
     c.povUp().whileTrue(liftUp());
     c.povDown().whileTrue(liftDown());
 
+    
+
     c.povRight().whileTrue(telescopeForward());
     c.povLeft().whileTrue(telescopeBackward());
+
+    c.povUpRight().whileTrue(liftUp().deadlineWith(telescopeForward()));
+    c.povUpLeft().whileTrue(liftUp().deadlineWith(telescopeBackward()));
+    c.povDownRight().whileTrue(liftDown().deadlineWith(telescopeForward()));
+    c.povDownLeft().whileTrue(liftDown().deadlineWith(telescopeBackward()));
 
     Trigger leftAndRightBumperNotPressed = (c.leftBumper().or(c.rightBumper())).negate();
     c.y().and(leftAndRightBumperNotPressed).toggleOnTrue(
