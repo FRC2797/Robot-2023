@@ -86,7 +86,15 @@ public class RobotContainer {
 
   //TODO: Code the switching of autos with a selector on shuffleboard
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
+    return sequence(
+      extensionBackIn(),
+      liftToTop(),
+      keepLiftingUp(),
+      extendForTop(),
+      dropGamepiece(),
+      extensionBackIn(),
+      liftToBottom()
+    );
   }
 
   public void clearAllButtonBindings() {
